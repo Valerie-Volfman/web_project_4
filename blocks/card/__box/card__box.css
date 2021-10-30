@@ -1,0 +1,9 @@
+.card__box {
+    background-color: #FFF;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 79px;
+    align-items: center;
+    border-radius: 0 0 10px 10px;
+}

@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="pages/index.css">
     <title>Around The U.S.</title>
 </head>
 
@@ -15,8 +16,9 @@
         </header>
         <main class="main">
             <section class="lead">
+                <div class="line"></div>
                 <div class="profile">
-                    <img class="profile__pic" alt="photo of the man" src="images/Profile.png">
+                    <div class="profile__pic"></div>
                     <div class="profile__container">
                         <div class="profile__info">
                             <div class="profile__name">
@@ -31,15 +33,13 @@
                     <button class="profile__add-button"></button>
                 </div>
                 <div class="popup">
-                    <button class="popup__close">
-                        <img alt="close button" src="images/Vector Button.svg">
-                    </button>
                     <div class="popup__content">
+                        <button class="popup__close-button"></button>
                         <h2 class="popup__title">Edit profile</h2>
-                        <form>
+                        <form class="popup__form">
                             <input class="popup__input popup__input_type_name">
                             <input class="popup__input popup__input_type_profession">
-                            <button type="save">Save</button>
+                            <button class="popup__save-button">Save</button>
                         </form>
                     </div>
                 </div>
@@ -47,39 +47,45 @@
             <section class="places">
                 <ul class="places__cards">
                     <li class="card">
+                        <img class="card__pic" alt="Mountain river in the forest." src="images/Pic1.png">
                         <div class="card__box">
                             <h2 class="card__name">Yosemite Valley</h2>
-                            <img class="card__like" alt="like button" src="/images/Heart.svg">
+                            <img class="card__like" alt="like button" src="images/Heart.svg">
                         </div>
                     </li>
                     <li class="card">
+                        <img class="card__pic" alt="Lake among the mountains." src="images/Pic2.png">
                         <div class="card__box">
                             <h2 class="card__name">Lake Louise</h2>
-                            <img class="card__like" alt="like button" src="/images/Heart.svg">
+                            <img class="card__like" alt="like button" src="images/Heart.svg">
                         </div>
                     </li>
                     <li class="card">
+                        <img class="card__pic" alt="The sun rises in the east among the hills." src="images/Pic3.png">
                         <div class="card__box">
                             <h2 class="card__name">Bald Mountains</h2>
-                            <img class="card__like" alt="like button" src="/images/Heart.svg">
+                            <img class="card__like" alt="like button" src="images/Heart.svg">
                         </div>
                     </li>
                     <li class="card">
+                        <img class="card__pic" alt="Night mountain landscape." src="images/Pic4.png">
                         <div class="card__box">
                             <h2 class="card__name">Latemar</h2>
-                            <img class="card__like" alt="like button" src="/images/Heart.svg">
+                            <img class="card__like" alt="like button" src="images/Heart.svg">
                         </div>
                     </li>
                     <li class="card">
+                        <img class="card__pic" alt="Morning on a mountain lake." src="images/Pic5.png">
                         <div class="card__box">
                             <h2 class="card__name">Vanoise Nationa</h2>
-                            <img class="card__like" alt="like button" src="/images/Heart.svg">
+                            <img class="card__like" alt="like button" src="images/Heart.svg">
                         </div>
                     </li>
                     <li class="card">
+                        <img class="card__pic" alt="Small mountain bay with boats." src="images/Pic6.png">
                         <div class="card__box">
                             <h2 class="card__name">Lago di Braies</h2>
-                            <img class="card__like" alt="like button" src="/images/Heart.svg">
+                            <img class="card__like" alt="like button" src="images/Heart.svg">
                         </div>
                     </li>
                 </ul> 
