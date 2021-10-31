@@ -1,7 +1,7 @@
 .popup__input {
   height: 27.26px;
-  opacity: 0.2;
-  border: 1px solid #000000;
+  color: rgba(0, 0, 0, 0.2);
+  border: 1px solid #00000021;
   border-top: none;
   border-right: none;
   border-left: none;
