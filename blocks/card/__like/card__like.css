@@ -1,5 +1,22 @@
 .card__like {
     width: 21px;
-    height: auto;
+    height: 21px;
     margin: 0 15px 0 0;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: #FFF;
+    background-image: url("../../../images/Heart.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: fill .3s;
+}
+
+.card__like:hover {
+    opacity: 0.5;
+}
+
+.card__like:active {
+    background-image: url("../../../images/Heart_active.svg");
+    opacity: 1;
 }

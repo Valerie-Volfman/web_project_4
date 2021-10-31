@@ -8,6 +8,8 @@ const popupSaveButton = document.querySelector(".popup__save-button");
 const popupInputName = document.querySelector(".popup__input_type_name");
 const popupInputProfession = document.querySelector(".popup__input_type_profession");
 
+const cardLike = document.querySelector(".card__like");
+
 editButton.addEventListener("click", () => {
     popupInputName.value = profileName.textContent;
     popupInputProfession.value = profileProfession.textContent;
@@ -22,6 +24,10 @@ popupSaveButton.addEventListener("click", (event) => {
 });
 
 popupCloseButton.addEventListener("click", closePopup);
+
+cardLike.addEventListener("click", () => {
+    cardLike.classList.toggle("active")
+})
 
 function openPopup() {
     popup.classList.add("popup__is-opened")
