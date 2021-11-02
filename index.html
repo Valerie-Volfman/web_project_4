@@ -15,34 +15,18 @@
             <img class="logo" alt="logo" src="images/Logo.svg">
         </header>
         <main class="main">
-            <section class="lead">
-                <div class="line"></div>
-                <div class="profile">
-                    <div class="profile__pic"></div>
-                    <div class="profile__container">
-                        <div class="profile__info">
-                            <div class="profile__name">
-                                <span class="profile__value profile__value_type_name">Jacques Cousteau</span>
-                                <button type="submit" class="profile__edit-button"></button>
-                            </div>
-                            <div class="profile__profession">
-                                <span class="profile__value profile__value_type_profession">Explorer</span>
-                            </div>
+            <section class="profile">
+                <div class="profile__pic"></div>
+                <div class="profile__container">
+                    <div class="profile__info">
+                        <div class="profile__name">
+                            <h1 class="profile__value profile__value_type_name">Jacques Cousteau</h1>
+                            <button type="submit" class="profile__edit-button"></button>
                         </div>
-                    </div>
-                    <button type="submit" class="profile__add-button"></button>
-                </div>
-                <div class="popup popup__is-opened">
-                    <div class="popup__content">
-                        <button type="reset" class="popup__close-button"></button>
-                        <h2 class="popup__title">Edit profile</h2>
-                        <form class="popup__form">
-                            <input class="popup__input popup__input_type_name">
-                            <input class="popup__input popup__input_type_profession">
-                            <button type="submit" class="popup__save-button">Save</button>
-                        </form>
+                        <p class="profile__value profile__value_type_profession">Explorer</p>
                     </div>
                 </div>
+                <button type="submit" class="profile__add-button"></button>
             </section>
             <section class="places">
                 <ul class="places__cards">
@@ -94,6 +78,17 @@
         <footer class="footer">
             <p class="footer__copyright">&copy; 2021 Around The U.S.</p>
         </footer>
+        <section class="popup popup_is-opened">
+            <div class="popup__content">
+                <button type="reset" class="popup__close-button"></button>
+                <h2 class="popup__title">Edit profile</h2>
+                <form class="popup__form">
+                    <input class="popup__input popup__input_type_name">
+                    <input class="popup__input popup__input_type_profession">
+                    <button type="submit" class="popup__save-button">Save</button>
+                </form>
+            </div>
+        </section>
     </div>
     <script src="JS/index.js"></script>
 </body>
