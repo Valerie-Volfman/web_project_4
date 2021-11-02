@@ -14,7 +14,8 @@
 
 @media screen and (max-width: 880px) {
   .places__cards {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
+    max-width: 600px;
   }
 }
 
