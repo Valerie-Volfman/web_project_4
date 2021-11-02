@@ -12,26 +12,22 @@ const popupInputProfession = document.querySelector(
   ".popup__input_type_profession"
 );
 
-const cardLike = document.querySelector(".card__like");
+/*const cardLike = document.querySelector(".card__like");*/
 
 editButton.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
   popupInputProfession.value = profileProfession.textContent;
-  openPopup();
+  let editButton = openPopup();
 });
 
-popupSaveButton.addEventListener("click", (event) => {
-  event.preventDefault();
+popupSaveButton.addEventListener("click", (submit) => {
+  submit.preventDefault();
   profileName.textContent = popupInputName.value;
   profileProfession.textContent = popupInputProfession.value;
-  closePopup();
+  let popupSaveButton = closePopup();
 });
 
 popupCloseButton.addEventListener("click", closePopup);
-
-cardLike.addEventListener("click", () => {
-  cardLike.classList.toggle("active");
-});
 
 function openPopup() {
   popup.classList.add("popup__is-opened");
