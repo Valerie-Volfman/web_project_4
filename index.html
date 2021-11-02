@@ -21,12 +21,12 @@
                     <div class="profile__info">
                         <div class="profile__name">
                             <h1 class="profile__value profile__value_type_name">Jacques Cousteau</h1>
-                            <button type="submit" class="profile__edit-button"></button>
+                            <button type="submit" name="editButton" class="profile__edit-button"></button>
                         </div>
                         <p class="profile__value profile__value_type_profession">Explorer</p>
                     </div>
                 </div>
-                <button type="submit" class="profile__add-button"></button>
+                <button type="submit" name="profileAddButton" class="profile__add-button"></button>
             </section>
             <section class="places">
                 <ul class="places__cards">
@@ -41,7 +41,7 @@
                         <img class="card__pic" alt="Lake among the mountains." src="images/Pic2.png">
                         <div class="card__box">
                             <h2 class="card__name">Lake Louise</h2>
-                            <button class="card__like"></button>
+                            <button type="button" name="cardLike" class="card__like"></button>
                         </div>
                     </li>
                     <li class="card">
@@ -80,12 +80,12 @@
         </footer>
         <section class="popup popup_is-opened">
             <div class="popup__content">
-                <button type="reset" class="popup__close-button"></button>
+                <button type="reset" name="popupCloseButton" class="popup__close-button"></button>
                 <h2 class="popup__title">Edit profile</h2>
-                <form class="popup__form">
-                    <input class="popup__input popup__input_type_name">
-                    <input class="popup__input popup__input_type_profession">
-                    <button type="submit" class="popup__save-button">Save</button>
+                <form name="popupForm" class="popup__form">
+                    <input name="popupInputName" class="popup__input popup__input_type_name">
+                    <input name="popupInputProfession" class="popup__input popup__input_type_profession">
+                    <button type="submit" name="popupSaveButton" class="popup__save-button">Save</button>
                 </form>
             </div>
         </section>
