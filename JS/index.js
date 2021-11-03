@@ -20,8 +20,8 @@ editButton.addEventListener("click", () => {
   let editButton = openPopup();
 });
 
-popupSaveButton.addEventListener("click", (submit) => {
-  submit.preventDefault();
+popup.addEventListener("submit", (event) => {
+  event.preventDefault();
   profileName.textContent = popupInputName.value;
   profileProfession.textContent = popupInputProfession.value;
   let popupSaveButton = closePopup();
