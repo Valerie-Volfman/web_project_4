@@ -79,9 +79,9 @@
         <footer class="footer">
             <p class="footer__copyright">&copy; 2021 Around The U.S.</p>
         </footer>
-        <section class="popup popup_is-opened">
+        <section class="popup popup_is-opened popup_type_edit-profile">
             <div class="popup__content">
-                <button aria-label="close" type="button" name="popupCloseButton" class="popup__close-button"></button>
+                <button aria-label="close" type="button" name="popupEditProfileCloseButton" class="popup__close-button"></button>
                 <h2 class="popup__title">Edit profile</h2>
                 <form name="popupForm" class="popup__form">
                     <input type="text" placeholder="Enter your first name" name="popupInputName" required
@@ -90,6 +90,20 @@
                         class="popup__input popup__input_type_profession">
                     <button aria-label="save" type="submit" name="popupSaveButton"
                         class="popup__save-button">Save</button>
+                </form>
+            </div>
+        </section>
+        <section class="popup popup_is-opened popup_type_add-card">
+            <div class="popup__content">
+                <button aria-label="close" type="button" name="popupAddCardCloseButton" class="popup__close-button"></button>
+                <h2 class="popup__title">New place</h2>
+                <form name="popupForm" class="popup__form">
+                    <input type="text" placeholder="Title" name="popupInputCardTitle" required
+                        class="popup__input popup__input_type_card-title">
+                    <input type="text" placeholder="Image link" name="popupInputCardLink" required
+                        class="popup__input popup__input_type_card-link">
+                    <button aria-label="save" type="submit" name="popupSaveButton"
+                        class="popup__save-button">Create</button>
                 </form>
             </div>
         </section>
