@@ -44,6 +44,9 @@ const popupAddCardCloseButton = popupAddCard.querySelector(".popup__close-button
 const popupSaveButton = document.querySelector(".popup__save-button");
 const popupAddCardButton = document.querySelector(".popup__save-button");
 
+const cardDeleteButton = document.querySelector("#card-template").content.querySelector(".card__delete-button");
+/*const cardLike = document.querySelector(".card__like");*/
+
 const cardTemplate = document.querySelector("#card-template").content.querySelector(".card");
 
 const popupInputName = document.querySelector(".popup__input_type_name");
@@ -54,16 +57,20 @@ const popupInputProfession = document.querySelector(
 const popupInputCardTitle = document.querySelector(".popup__input_type_card-title");
 const popupInputCardLink = document.querySelector(".popup__input_type_card-link");
 
-/*const cardLike = document.querySelector(".card__like");*/
+
 
 //Functions
-function createCardElement(cardData) { // { name, link }
+function createCardElement(cardData) { // { name, link } //function for creating a new card
   const card = cardTemplate.cloneNode(true);
   card.querySelector(".card__name").textContent = cardData.name;
   card.querySelector(".card__pic").style.backgroundImage = `url(${cardData.link})`;
   
   return card;
 }
+
+cardDeleteButton.addEventListener("click", () => {
+  cardTemplate.remove();
+})
 
 editButton.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
@@ -77,14 +84,14 @@ addButton.addEventListener("click", () => {
   let addButton = openPopup(popupAddCard);
 });
 
-popup.addEventListener("submit", (event) => {
+popup.addEventListener("submit", (event) => { //function for changing a profile
   event.preventDefault();
   profileName.textContent = popupInputName.value;
   profileProfession.textContent = popupInputProfession.value;
   let popupSaveButton = closePopup(popupEditProfile);
 });
 
-popupAddCard.addEventListener("submit", (event) => {
+popupAddCard.addEventListener("submit", (event) => { //function for adding a new card
   event.preventDefault();
   cardTemplate.querySelector(".card__name").textContent = popupInputCardTitle.value;
   cardTemplate.querySelector(".card__pic").backgroundImage = popupInputCardLink.value;
