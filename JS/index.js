@@ -42,6 +42,7 @@ const popup = document.querySelector(".popup");
 const popupEditProfileCloseButton = popupEditProfile.querySelector(".popup__close-button");
 const popupAddCardCloseButton = popupAddCard.querySelector(".popup__close-button");
 const popupSaveButton = document.querySelector(".popup__save-button");
+const popupAddCardButton = document.querySelector(".popup__save-button");
 
 const cardTemplate = document.querySelector("#card-template").content.querySelector(".card");
 
@@ -52,8 +53,6 @@ const popupInputProfession = document.querySelector(
 
 const popupInputCardTitle = document.querySelector(".popup__input_type_card-title");
 const popupInputCardLink = document.querySelector(".popup__input_type_card-link");
-const cardName = document.querySelector(".card__name");
-const cardLink = document.querySelector(".card__pic");
 
 /*const cardLike = document.querySelector(".card__like");*/
 
@@ -62,7 +61,7 @@ function createCardElement(cardData) { // { name, link }
   const card = cardTemplate.cloneNode(true);
   card.querySelector(".card__name").textContent = cardData.name;
   card.querySelector(".card__pic").style.backgroundImage = `url(${cardData.link})`;
-
+  
   return card;
 }
 
@@ -82,11 +81,21 @@ popup.addEventListener("submit", (event) => {
   event.preventDefault();
   profileName.textContent = popupInputName.value;
   profileProfession.textContent = popupInputProfession.value;
-  let popupSaveButton = closePopup();
+  let popupSaveButton = closePopup(popupEditProfile);
 });
+
+popupAddCard.addEventListener("submit", (event) => {
+  event.preventDefault();
+  cardTemplate.querySelector(".card__name").textContent = popupInputCardTitle.value;
+  cardTemplate.querySelector(".card__pic").backgroundImage = popupInputCardLink.value;
+  placesCards.prepend(cardTemplate);
+  let popupAddCardButton = closePopup(popupAddCard);
+});
+
 
 popupEditProfileCloseButton.addEventListener("click", function() { closePopup(popupEditProfile) });
 popupAddCardCloseButton.addEventListener("click", function() { closePopup(popupAddCard) });
+
 
 function openPopup(popup) {
   popup.classList.add("popup__is-opened");
