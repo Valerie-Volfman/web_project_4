@@ -31,48 +31,6 @@
             </section>
             <section class="places">
                 <ul class="places__cards">
-                    <li class="card">
-                        <img class="card__pic" alt="Mountain river in the forest." src="images/Pic1.png">
-                        <div class="card__box">
-                            <h2 class="card__name">Yosemite Valley</h2>
-                            <button aria-label="like" type="button" name="cardLike" class="card__like"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img class="card__pic" alt="Lake among the mountains." src="images/Pic2.png">
-                        <div class="card__box">
-                            <h2 class="card__name">Lake Louise</h2>
-                            <button aria-label="like" type="button" name="cardLike" class="card__like"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img class="card__pic" alt="The sun rises in the east among the hills." src="images/Pic3.png">
-                        <div class="card__box">
-                            <h2 class="card__name">Bald Mountains</h2>
-                            <button aria-label="like" type="button" name="cardLike" class="card__like"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img class="card__pic" alt="Night mountain landscape." src="images/Pic4.png">
-                        <div class="card__box">
-                            <h2 class="card__name">Latemar</h2>
-                            <button aria-label="like" type="button" name="cardLike" class="card__like"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img class="card__pic" alt="Morning on a mountain lake." src="images/Pic5.png">
-                        <div class="card__box">
-                            <h2 class="card__name">Vanoise Nationa...</h2>
-                            <button aria-label="like" type="button" name="cardLike" class="card__like"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img class="card__pic" alt="Small mountain bay with boats." src="images/Pic6.png">
-                        <div class="card__box">
-                            <h2 class="card__name">Lago di Braies</h2>
-                            <button aria-label="like" type="button" name="cardLike" class="card__like"></button>
-                        </div>
-                    </li>
                 </ul>
             </section>
         </main>
@@ -108,6 +66,16 @@
             </div>
         </section>
     </div>
+    <template id="card-template">
+        <li class="card">
+            <div class="card__pic"><button aria-label="delete" type="button" name="cardDeleteButton" required
+            class="card__delete-button"></button></div>
+            <div class="card__box">
+                <h2 class="card__name"></h2>
+                <button aria-label="like" type="button" name="cardLike" class="card__like"></button>
+            </div>
+        </li>
+    </template>
     <script src="JS/index.js"></script>
 </body>
 

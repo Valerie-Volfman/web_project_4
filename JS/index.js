@@ -1,7 +1,36 @@
-//DOM elements
+const initialCards = [
+  {
+    name: "Yosemite Valley",
+    link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
+  },
+  {
+    name: "Lake Louise",
+    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
+  },
+  {
+    name: "Bald Mountains",
+    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
+  },
+  {
+    name: "Latemar",
+    link: "https://code.s3.yandex.net/web-code/latemar.jpg"
+  },
+  {
+    name: "Vanoise National Park",
+    link: "https://code.s3.yandex.net/web-code/vanoise.jpg"
+  },
+  {
+    name: "Lago di Braies",
+    link: "https://code.s3.yandex.net/web-code/lago.jpg"
+  }
+];
+
+//Wrappers
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const popupAddCard = document.querySelector(".popup_type_add-card");
+const placesCards = document.querySelector(".places__cards")
 
+//DOM elements
 const profileName = document.querySelector(".profile__value_type_name");
 const profileProfession = document.querySelector(
   ".profile__value_type_profession"
@@ -13,6 +42,9 @@ const popup = document.querySelector(".popup");
 const popupEditProfileCloseButton = popupEditProfile.querySelector(".popup__close-button");
 const popupAddCardCloseButton = popupAddCard.querySelector(".popup__close-button");
 const popupSaveButton = document.querySelector(".popup__save-button");
+
+const cardTemplate = document.querySelector("#card-template").content.querySelector(".card");
+
 const popupInputName = document.querySelector(".popup__input_type_name");
 const popupInputProfession = document.querySelector(
   ".popup__input_type_profession"
@@ -26,6 +58,14 @@ const cardLink = document.querySelector(".card__pic");
 /*const cardLike = document.querySelector(".card__like");*/
 
 //Functions
+function createCardElement(cardData) { // { name, link }
+  const card = cardTemplate.cloneNode(true);
+  card.querySelector(".card__name").textContent = cardData.name;
+  card.querySelector(".card__pic").style.backgroundImage = `url(${cardData.link})`;
+
+  return card;
+}
+
 editButton.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
   popupInputProfession.value = profileProfession.textContent;
@@ -55,3 +95,7 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove("popup__is-opened");
 }
+
+initialCards.forEach(initialCardData => {
+  placesCards.prepend(createCardElement(initialCardData));
+})

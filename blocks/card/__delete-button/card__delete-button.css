@@ -1,0 +1,14 @@
+.card__delete-button {
+    margin-top: 18px;
+    margin-right: 15px;
+    float: right;
+    width: 18px;
+    height: 19.3px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-image: url("../../../images/Trash.svg");
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+}
