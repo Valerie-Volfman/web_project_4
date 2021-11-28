@@ -6,17 +6,4 @@
   outline: none;
   border: none;
   background-color: transparent;
-  background-image: url("../../../images/Heart.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: fill 0.3s;
-}
-
-.card__like:hover {
-  opacity: 0.5;
-}
-
-.card__like:active {
-  background-image: url("../../../images/Heart-active.svg");
-  opacity: 1;
 }
