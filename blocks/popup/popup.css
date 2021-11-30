@@ -13,4 +13,8 @@
   top: 0;
   right: 0;
   bottom: 0;
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transition: height 0ms 400ms, opacity 400ms 0ms;
 }
