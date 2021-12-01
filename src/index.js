@@ -1,6 +1,4 @@
-import { initialCards } from "/Users/valerie/Projects/web_project_4/web_project_4/src/initialCards";
-
-const {initialCards} = ("./initialCards");
+import { initialCards } from "./initialCards.js";
 
 //Wrappers
 const popupImage = document.querySelector(".popup_type_image-popup");
