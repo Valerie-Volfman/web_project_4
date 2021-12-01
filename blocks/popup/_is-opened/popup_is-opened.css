@@ -1,7 +1,5 @@
 .popup__is-opened {
-  display: flex;
   visibility: initial;
-  height: auto;
+  pointer-events: all;
   opacity: 1;
-  transition: height 0ms 0ms, opacity 600ms 0ms;
 }
