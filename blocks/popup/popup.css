@@ -15,5 +15,5 @@
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
-  transition: height 200ms 400ms, opacity 400ms 230ms;
+  transition: height 200ms 400ms, opacity 400ms 100ms;
 }
