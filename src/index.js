@@ -51,17 +51,6 @@ const popupImageCloseButton = popupImage.querySelector(
 const popupSaveButton = document.querySelector(".popup__save-button");
 const popupAddCardButton = document.querySelector(".popup__save-button");
 
-const cardName = document
-  .querySelector("#card-template")
-  .content.querySelector(".card__name");
-const cardPicture = document
-  .querySelector("#card-template")
-  .content.querySelector(".card__picture");
-
-const cardDeleteButton = document
-  .querySelector("#card-template")
-  .content.querySelector(".card__delete-button");
-
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
@@ -118,23 +107,8 @@ editButton.addEventListener("click", () => {
 });
 
 addButton.addEventListener("click", () => {
-  popupInputCardTitle.value =
-    cardTemplate.querySelector(".card__name").textContent;
-  popupInputCardLink.value =
-    cardTemplate.querySelector(".card__picture").style.backgroundImage;
   openPopup(popupAddCard);
   popupForm.reset();
-});
-
-cardDeleteButton.addEventListener("click", () => {
-  cardTemplate.remove();
-});
-
-const cardLike = document
-  .querySelector("#card-template")
-  .content.querySelector(".card__like");
-cardLike.addEventListener("click", () => {
-  cardLike.classList.toggle("card__like_non-active");
 });
 
 popup.addEventListener("submit", (event) => {
@@ -148,10 +122,8 @@ popup.addEventListener("submit", (event) => {
 popupAddCard.addEventListener("submit", (event) => {
   //function for adding a new card
   event.preventDefault();
-  createCardElement(initialCards);
-  cardName.textContent = popupInputCardTitle.value;
-  cardPicture.style.backgroundImage = `url("${popupInputCardLink.value}")`;
-  placesCards.prepend(cardTemplate);
+  const cardElement = createCardElement({ name: popupInputCardTitle.value, link: popupInputCardLink.value });
+  placesCards.prepend(cardElement);
   closePopup(popupAddCard);
 });
 
