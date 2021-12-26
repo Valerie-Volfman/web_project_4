@@ -103,10 +103,13 @@ function createCardElement(cardData) {
 editButton.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
   popupInputProfession.value = profileProfession.textContent;
+  checkInitialFormValidity(popupEditProfile.querySelector(".popup__form"), pageSettings);
   openPopup(popupEditProfile);
 });
 
 addButton.addEventListener("click", () => {
+
+  checkInitialFormValidity(popupEditProfile.querySelector(".popup__form"), pageSettings);
   openPopup(popupAddCard);
   popupForm.reset();
 });

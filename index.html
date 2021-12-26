@@ -43,12 +43,14 @@
                     class="popup__close-button"></button>
                 <h2 class="popup__title">Edit profile</h2>
                 <form name="popupForm" class="popup__form">
-                    <input type="text" placeholder="Enter your first name" name="popupInputName" required
+                    <input id="input_type_name" type="text" placeholder="Enter your first name" name="popupInputName" minlength="2" maxlength="40" required
                         class="popup__input popup__input_type_name">
-                    <input type="text" placeholder="Your profession" name="popupInputProfession" required
+                        <span id="input_type_name-error" class="popup__error">Please fill out this field.</span>
+                    <input id="input_type_profession" type="text" placeholder="Your profession" name="popupInputProfession" minlength="2" maxlength="200" required
                         class="popup__input popup__input_type_profession">
+                        <span id="input_type_profession-error" class="popup__error">Please fill out this field.</span>
                     <button aria-label="save" type="submit" name="popupSaveButton"
-                        class="popup__save-button">Save</button>
+                        class="popup__save-button popup__save-button_disabled">Save</button>
                 </form>
             </div>
         </section>
@@ -58,12 +60,14 @@
                     class="popup__close-button"></button>
                 <h2 class="popup__title">New place</h2>
                 <form name="popupForm" class="popup__form">
-                    <input type="text" placeholder="Title" name="popupInputCardTitle" required
+                    <input id="input_type_card-title" type="text" placeholder="Title" name="popupInputCardTitle" minlength="1" maxlength="30" required
                         class="popup__input popup__input_type_card-title">
-                    <input type="text" placeholder="Image link" name="popupInputCardLink" required
+                        <span id="input_type_card-title-error" class="popup__error">Please fill out this field.</span>
+                    <input id="input_type_card-link" type="url" placeholder="Image link" name="popupInputCardLink" required
                         class="popup__input popup__input_type_card-link">
+                        <span id="input_type_card-link-error" class="popup__error">Please enter a web address.</span>
                     <button aria-label="save" type="submit" name="popupSaveButton"
-                        class="popup__save-button">Create</button>
+                        class="popup__save-button popup__save-button_disabled">Create</button>
                 </form>
             </div>
         </section>
@@ -88,7 +92,8 @@
             </div>
         </li>
     </template>
-    <script src="./src/index.js"></script>
+    <script src="./src/validate.js" defer></script>
+    <script src="./src/index.js" defer></script>
 </body>
 
 </html>
