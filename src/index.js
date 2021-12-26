@@ -39,6 +39,7 @@ const editButton = document.querySelector(".profile__edit-button");
 const addButton = document.querySelector(".profile__add-button");
 
 const popup = document.querySelector(".popup");
+const popupContent = document.querySelector(".popup__content");
 const popupEditProfileCloseButton = popupEditProfile.querySelector(
   ".popup__close-button"
 );
@@ -103,13 +104,18 @@ function createCardElement(cardData) {
 editButton.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
   popupInputProfession.value = profileProfession.textContent;
-  checkInitialFormValidity(popupEditProfile.querySelector(".popup__form"), pageSettings);
+  checkInitialFormValidity(
+    popupEditProfile.querySelector(".popup__form"),
+    pageSettings
+  );
   openPopup(popupEditProfile);
 });
 
 addButton.addEventListener("click", () => {
-
-  checkInitialFormValidity(popupEditProfile.querySelector(".popup__form"), pageSettings);
+  checkInitialFormValidity(
+    popupEditProfile.querySelector(".popup__form"),
+    pageSettings
+  );
   openPopup(popupAddCard);
   popupForm.reset();
 });
@@ -125,7 +131,10 @@ popup.addEventListener("submit", (event) => {
 popupAddCard.addEventListener("submit", (event) => {
   //function for adding a new card
   event.preventDefault();
-  const cardElement = createCardElement({ name: popupInputCardTitle.value, link: popupInputCardLink.value });
+  const cardElement = createCardElement({
+    name: popupInputCardTitle.value,
+    link: popupInputCardLink.value,
+  });
   placesCards.prepend(cardElement);
   closePopup(popupAddCard);
 });
@@ -141,12 +150,30 @@ popupImageCloseButton.addEventListener("click", function () {
   closePopup(popupImage);
 });
 
+function escapeHandler(event) {
+  if (event.key === "Escape") {
+    closePopup(popup);
+    closePopup(popupAddCard);
+  }
+};
+
+function mouseEscHandler(event) {
+  if (event.target.classList.contains("popup__is-opened")) {
+    closePopup(popup);
+    closePopup(popupAddCard);
+  }
+}
+
 function openPopup(popup) {
   popup.classList.add("popup__is-opened");
+  document.addEventListener("keydown", escapeHandler);
+  document.addEventListener("mousedown", mouseEscHandler);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup__is-opened");
+  document.removeEventListener("keydown", escapeHandler);
+  document.removeEventListener("mousedown", mouseEscHandler);
 }
 
 initialCards.forEach((initialCardData) => {

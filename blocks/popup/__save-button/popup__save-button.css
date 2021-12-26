@@ -24,7 +24,7 @@
 
 .popup__save-button_disabled {
   opacity: 0.2;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border: 1px solid #000000;
   color: #000;
