@@ -31,6 +31,7 @@ const popupAddCard = document.querySelector(".popup_type_add-card");
 const placesCards = document.querySelector(".places__cards");
 
 //DOM elements
+const popups = document.querySelectorAll(".popup");
 const profileName = document.querySelector(".profile__value_type_name");
 const profileProfession = document.querySelector(
   ".profile__value_type_profession"
@@ -38,7 +39,6 @@ const profileProfession = document.querySelector(
 const editButton = document.querySelector(".profile__edit-button");
 const addButton = document.querySelector(".profile__add-button");
 
-const popup = document.querySelector(".popup");
 const popupContent = document.querySelector(".popup__content");
 const popupEditProfileCloseButton = popupEditProfile.querySelector(
   ".popup__close-button"
@@ -50,12 +50,13 @@ const popupImageCloseButton = popupImage.querySelector(
   ".popup__image-close-button"
 );
 const popupSaveButton = document.querySelector(".popup__save-button");
-const popupAddCardButton = document.querySelector(".popup__save-button");
 
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
-const popupForm = popupAddCard.querySelector(".popup__form");
+
+const editProfileForm = popupEditProfile.querySelector(".popup__form");
+const addCardForm = popupAddCard.querySelector(".popup__form");
 
 const popupInputName = document.querySelector(".popup__input_type_name");
 const popupInputProfession = document.querySelector(
@@ -88,8 +89,8 @@ function createCardElement(cardData) {
       card.remove();
     });
 
-  card.querySelector(".card__like").addEventListener("click", () => {
-    card.querySelector(".card__like").classList.toggle("card__like_non-active");
+  card.querySelector(".card__like").addEventListener("click", (evt) => {
+    evt.target.classList.toggle("card__like_non-active");
   });
 
   card.querySelector(".card__picture").addEventListener("click", () => {
@@ -104,28 +105,22 @@ function createCardElement(cardData) {
 editButton.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
   popupInputProfession.value = profileProfession.textContent;
-  checkInitialFormValidity(
-    popupEditProfile.querySelector(".popup__form"),
-    pageSettings
-  );
+  checkInitialFormValidity(editProfileForm, pageSettings);
   openPopup(popupEditProfile);
 });
 
 addButton.addEventListener("click", () => {
-  checkInitialFormValidity(
-    popupEditProfile.querySelector(".popup__form"),
-    pageSettings
-  );
+  checkInitialFormValidity(addCardForm, pageSettings);
   openPopup(popupAddCard);
-  popupForm.reset();
+  addCardForm.reset();
 });
 
-popup.addEventListener("submit", (event) => {
-  //function for popup
+popupEditProfile.addEventListener("submit", (event) => {
+  //function for popupEditProfile
   event.preventDefault();
   profileName.textContent = popupInputName.value;
   profileProfession.textContent = popupInputProfession.value;
-  closePopup(popup);
+  closePopup(popupEditProfile);
 });
 
 popupAddCard.addEventListener("submit", (event) => {
@@ -137,30 +132,30 @@ popupAddCard.addEventListener("submit", (event) => {
   });
   placesCards.prepend(cardElement);
   closePopup(popupAddCard);
+  addCardForm.reset();
 });
 
-popupEditProfileCloseButton.addEventListener("click", function () {
-  closePopup(popupEditProfile);
-});
-popupAddCardCloseButton.addEventListener("click", function () {
-  closePopup(popupAddCard);
-});
-
-popupImageCloseButton.addEventListener("click", function () {
-  closePopup(popupImage);
+popups.forEach((popup) => {
+  popup.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("popup__is-opened")) {
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains("popup__close-button")) {
+      closePopup(popup);
+    }
+  });
 });
 
 function escapeHandler(event) {
   if (event.key === "Escape") {
-    closePopup(popup);
-    closePopup(popupAddCard);
+    const openedPopup = document.querySelector(".popup__is-opened");
+    closePopup(openedPopup);
   }
-};
+}
 
 function mouseEscHandler(event) {
   if (event.target.classList.contains("popup__is-opened")) {
-    closePopup(popup);
-    closePopup(popupAddCard);
+    closePopup(event.target);
   }
 }
 

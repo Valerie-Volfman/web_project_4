@@ -2,5 +2,7 @@
   background-image: url("../../../images/Heart-active.svg");
   opacity: 1;
   display: flex;
+  background-repeat: no-repeat;
+  background-position: center;
   background-color: transparent;
 }

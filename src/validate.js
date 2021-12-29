@@ -34,9 +34,10 @@ const toggleButtonState = (inputElements, buttonElement, settings) => {
     (inputElement) => !inputElement.validity.valid
   );
   if (hasInvalidInput) {
-    buttonElement.classList.add(settings.inactiveButtonClass);
+    buttonElement.classList.add(settings.inactiveButtonClass)
   } else {
-    buttonElement.classList.remove(settings.inactiveButtonClass);
+    buttonElement.classList.remove(settings.inactiveButtonClass)
+    popupSaveButton.disabled = false;
   }
 };
 
@@ -63,7 +64,6 @@ function enableValidation(settings) {
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-
     setEventListeners(formElement, settings);
   });
 }
