@@ -49,7 +49,6 @@ const popupAddCardCloseButton = popupAddCard.querySelector(
 const popupImageCloseButton = popupImage.querySelector(
   ".popup__image-close-button"
 );
-const popupSaveButton = document.querySelector(".popup__save-button");
 
 const cardTemplate = document
   .querySelector("#card-template")
@@ -112,7 +111,6 @@ editButton.addEventListener("click", () => {
 addButton.addEventListener("click", () => {
   checkInitialFormValidity(addCardForm, pageSettings);
   openPopup(popupAddCard);
-  addCardForm.reset();
 });
 
 popupEditProfile.addEventListener("submit", (event) => {
@@ -153,22 +151,14 @@ function escapeHandler(event) {
   }
 }
 
-function mouseEscHandler(event) {
-  if (event.target.classList.contains("popup__is-opened")) {
-    closePopup(event.target);
-  }
-}
-
 function openPopup(popup) {
   popup.classList.add("popup__is-opened");
   document.addEventListener("keydown", escapeHandler);
-  document.addEventListener("mousedown", mouseEscHandler);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup__is-opened");
   document.removeEventListener("keydown", escapeHandler);
-  document.removeEventListener("mousedown", mouseEscHandler);
 }
 
 initialCards.forEach((initialCardData) => {

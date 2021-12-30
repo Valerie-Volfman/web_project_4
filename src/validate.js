@@ -35,9 +35,10 @@ const toggleButtonState = (inputElements, buttonElement, settings) => {
   );
   if (hasInvalidInput) {
     buttonElement.classList.add(settings.inactiveButtonClass)
+    buttonElement.disabled = true;
   } else {
     buttonElement.classList.remove(settings.inactiveButtonClass)
-    popupSaveButton.disabled = false;
+    buttonElement.disabled = false;
   }
 };
 
