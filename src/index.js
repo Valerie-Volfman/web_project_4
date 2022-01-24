@@ -1,7 +1,6 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import { openPopup, closePopup } from "./utils.js";
-const formValidators = {};
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -37,6 +36,7 @@ const addButton = document.querySelector(".profile__add-button");
 const popupAddCard = document.querySelector(".popup_type_add-card");
 const addCardForm = popupAddCard.querySelector(".popup__form");
 const editProfileForm = popupEditProfile.querySelector(".popup__form");
+
 const profileName = document.querySelector(".profile__value_type_name");
 const profileProfession = document.querySelector(
   ".profile__value_type_profession"
@@ -56,56 +56,6 @@ const popupInputCardLink = document.querySelector(
   ".popup__input_type_card-link"
 );
 
-export const popupPic = popupImage.querySelector(".popup__image");
-export const popupImageTitle = popupImage.querySelector(".popup__image-title");
-
-function createCard(cardElement) {
-  const card = new Card(cardElement, cardTemplateSelector);
-  placesCards.prepend(card.render());
-}
-
-popupAddCard.addEventListener("submit", (event) => {
-  //function for adding a new card
-  event.preventDefault();
-  const cardElement = {
-    name: popupInputCardTitle.value,
-    link: popupInputCardLink.value,
-  };
-  createCard(cardElement);
-  closePopup(popupAddCard);
-  addCardForm.reset();
-});
-
-popupEditProfile.addEventListener("submit", (event) => {
-  //function for popupEditProfile
-  event.preventDefault();
-  profileName.textContent = popupInputName.value;
-  profileProfession.textContent = popupInputProfession.value;
-  closePopup(popupEditProfile);
-});
-
-editButton.addEventListener("click", () => {
-  popupInputName.value = profileName.textContent;
-  popupInputProfession.value = profileProfession.textContent;
-  formValidators[editProfileForm.getAttribute("name")].toggleButtonState(
-    pageSettings
-  );
-  //checkInitialFormValidity(editProfileForm, pageSettings);
-  openPopup(popupEditProfile);
-});
-
-addButton.addEventListener("click", () => {
-  //checkInitialFormValidity(addCardForm, pageSettings);
-  formValidators[addCardForm.getAttribute("name")].toggleButtonState(
-    pageSettings
-  );
-  openPopup(popupAddCard);
-});
-
-initialCards.forEach((initialCardData) => {
-  createCard(initialCardData);
-});
-
 const pageSettings = {
   formElement: ".popup__form",
   inputSelector: ".popup__input",
@@ -114,30 +64,55 @@ const pageSettings = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
+//Validators
+const editFormValidator = new FormValidator(pageSettings, popupEditProfile);
+const addFormValidator = new FormValidator(pageSettings, popupAddCard);
 
-// const formValidators = {};
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
 
-// enable validation
-const enableValidation = (settings) => {
-  const formList = Array.from(document.querySelectorAll(settings.formElement));
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(settings, formElement);
-    // here I get the name of the form
-    const formName = formElement.getAttribute("name");
+//function for creating a new card
+function createCard(cardElement) {
+  const card = new Card(cardElement, cardTemplateSelector);
+  placesCards.prepend(card.render());
+}
+//for adding a new card
+popupAddCard.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const cardElement = {
+    name: popupInputCardTitle.value,
+    link: popupInputCardLink.value,
+  };
+  createCard(cardElement);
+  closePopup(popupAddCard);
 
-    // here I store a validator by the `name` of the form
-    formValidators[formName] = validator;
-    validator.enableValidation();
+  addCardForm.reset();
 
-    const inputElements = [
-      ...formElement.querySelectorAll(settings.inputSelector),
-    ];
-    const buttonElement = formElement.querySelector(
-      settings.submitButtonSelector
-    );
+  addFormValidator.resetValidation();
+});
+//for popupEditProfile
+popupEditProfile.addEventListener("submit", (event) => {
+  event.preventDefault();
+  profileName.textContent = popupInputName.value;
+  profileProfession.textContent = popupInputProfession.value;
+  editFormValidator.resetValidation();
+  closePopup(popupEditProfile);
+});
+//for opening popups
+editButton.addEventListener("click", () => {
+  popupInputName.value = profileName.textContent;
+  popupInputProfession.value = profileProfession.textContent;
+  openPopup(popupEditProfile);
+});
 
-    validator.toggleButtonState(inputElements, buttonElement, settings);
-  });
-};
+addButton.addEventListener("click", () => {
+  openPopup(popupAddCard);
+});
+
+initialCards.forEach((initialCardData) => {
+  createCard(initialCardData);
+});
 
 export { pageSettings };
+export const popupPic = popupImage.querySelector(".popup__image");
+export const popupImageTitle = popupImage.querySelector(".popup__image-title");
