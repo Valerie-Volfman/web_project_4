@@ -8,8 +8,8 @@ class FormValidator {
 
         this._formElement = formElement;
 
-        this._inputElements = inputElements;
-        this._buttonElement = buttonElement;
+        this._inputElements = settings.inputSelector;
+        this._buttonElement = settings.submitButtonSelector;
     }
 
     
@@ -69,17 +69,17 @@ class FormValidator {
           });
     }
 
-    enableValidation() {
-        this._formElement.addEventListener("submit", (evt) => {
-            evt.preventDefault();
+   enableValidation() {
+      this._formElement.addEventListener("submit", (event) => {
+            event.preventDefault();
           });
           this._setEventListeners();
     }
 
     resetValidation() {
       this.toggleButtonState();
-      this._inputElements.forEach((inputElement) => {
-        this._hideInputError(inputElement)
+      this._inputElements.forEach((inputSelector) => {
+        this._hideInputError(inputSelector)
       });
     }
 

@@ -87,14 +87,14 @@ popupEditProfile.addEventListener("submit", (event) => {
 editButton.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
   popupInputProfession.value = profileProfession.textContent;
-  formValidators[ editProfileForm.getAttribute("name") ].resetValidation()
+  formValidators[ editProfileForm.getAttribute("name") ].enableValidation(pageSettings)
   //checkInitialFormValidity(editProfileForm, pageSettings);
   openPopup(popupEditProfile);
 });
 
 addButton.addEventListener("click", () => {
   //checkInitialFormValidity(addCardForm, pageSettings);
- formValidators[ addCardForm.getAttribute("name") ].resetValidation()
+  formValidators[addCardForm.getAttribute("name") ].enableValidation(pageSettings)
   openPopup(popupAddCard);
 });
 
@@ -102,7 +102,7 @@ initialCards.forEach((initialCardData) => {
   createCard(initialCardData);
 });
 
-const formSelector = ".popup__form";
+const formElement = ".popup__form";
 const pageSettings = {
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__save-button",
@@ -114,10 +114,10 @@ const pageSettings = {
 const formValidators = {}
 
 // enable validation
-const enableValidation = (settings) => {
-  const formList = Array.from(document.querySelectorAll(settings.formSelector))
+const enableValidation = (pageSettings) => {
+  const formList = Array.from(document.querySelectorAll(pageSettings.formElement))
   formList.forEach((formElement) => {
-    const validator = new FormValidator(settings, formElement)
+    const validator = new FormValidator(formElement, pageSettings)
     // here I get the name of the form
     const formName = formElement.getAttribute("name")
 
@@ -125,19 +125,16 @@ const enableValidation = (settings) => {
     formValidators[formName] = validator;
    validator.enableValidation();
 
-   const inputElements = [
-    ...formElement.querySelectorAll(pageSettings.inputSelector),
-  ];
- const buttonElement = formElement.querySelector(
-    pageSettings.submitButtonSelector
-  );
+//    const inputElements = [
+//     ...formElement.querySelectorAll(settings.inputSelector),
+//   ];
+//  const buttonElement = formElement.querySelector(
+//     settings.submitButtonSelector
+//   );
 
-  validator.toggleButtonState(inputElements, buttonElement, settings);
+//   validator.toggleButtonState(inputElements, buttonElement, settings);
   });
 };
-
-
-
 
 enableValidation(pageSettings);
 
