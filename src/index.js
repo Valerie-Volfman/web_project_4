@@ -1,4 +1,4 @@
-import  Card  from "./Card.js";
+import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import { openPopup, closePopup } from "./utils.js";
 
@@ -29,7 +29,7 @@ const initialCards = [
   },
 ];
 //Wrappers
- export const popupImage = document.querySelector(".popup_type_image-popup");
+export const popupImage = document.querySelector(".popup_type_image-popup");
 const placesCards = document.querySelector(".places__cards");
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const editButton = document.querySelector(".profile__edit-button");
@@ -49,28 +49,28 @@ const popupInputProfession = document.querySelector(
 
 //DOM elements
 const cardTemplateSelector = "#card-template";
- const popupInputCardTitle = document.querySelector(
-   ".popup__input_type_card-title"
- );
- const popupInputCardLink = document.querySelector(
-   ".popup__input_type_card-link"
- );
+const popupInputCardTitle = document.querySelector(
+  ".popup__input_type_card-title"
+);
+const popupInputCardLink = document.querySelector(
+  ".popup__input_type_card-link"
+);
 
 export const popupPic = popupImage.querySelector(".popup__image");
 export const popupImageTitle = popupImage.querySelector(".popup__image-title");
 
 function createCard(cardElement) {
-  const card = new Card(cardElement, cardTemplateSelector)
+  const card = new Card(cardElement, cardTemplateSelector);
   placesCards.prepend(card.render());
 }
 
 popupAddCard.addEventListener("submit", (event) => {
   //function for adding a new card
   event.preventDefault();
-  const cardElement = ({
+  const cardElement = {
     name: popupInputCardTitle.value,
     link: popupInputCardLink.value,
-  });
+  };
   createCard(cardElement);
   closePopup(popupAddCard);
   addCardForm.reset();
@@ -87,14 +87,16 @@ popupEditProfile.addEventListener("submit", (event) => {
 editButton.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
   popupInputProfession.value = profileProfession.textContent;
-  formValidators[ editProfileForm.getAttribute("name") ].enableValidation(pageSettings)
+  formValidators[editProfileForm.getAttribute("name")].enableValidation(
+    pageSettings
+  );
   //checkInitialFormValidity(editProfileForm, pageSettings);
   openPopup(popupEditProfile);
 });
 
 addButton.addEventListener("click", () => {
   //checkInitialFormValidity(addCardForm, pageSettings);
-  formValidators[addCardForm].enableValidation(pageSettings)
+  formValidators[addCardForm].enableValidation(pageSettings);
   openPopup(popupAddCard);
 });
 
@@ -111,31 +113,31 @@ const pageSettings = {
   errorClass: "popup__error_visible",
 };
 
-const formValidators = {}
+const formValidators = {};
 
 // enable validation
 const enableValidation = (settings) => {
-  const formList = Array.from(document.querySelectorAll(settings.formElement))
+  const formList = Array.from(document.querySelectorAll(settings.formElement));
   formList.forEach((formElement) => {
-    const validator = new FormValidator(formElement, settings)
+    const validator = new FormValidator(settings, formElement);
     // here I get the name of the form
-    const formName = formElement.getAttribute("name")
+    const formName = formElement.getAttribute("name");
 
-   // here I store a validator by the `name` of the form
+    // here I store a validator by the `name` of the form
     formValidators[formName] = validator;
-   validator.enableValidation();
+    validator.enableValidation();
 
-//    const inputElements = [
-//     ...formElement.querySelectorAll(settings.inputSelector),
-//   ];
-//  const buttonElement = formElement.querySelector(
-//     settings.submitButtonSelector
-//   );
+    //    const inputElements = [
+    //     ...formElement.querySelectorAll(settings.inputSelector),
+    //   ];
+    //  const buttonElement = formElement.querySelector(
+    //     settings.submitButtonSelector
+    //   );
 
-//   validator.toggleButtonState(inputElements, buttonElement, settings);
+    //   validator.toggleButtonState(inputElements, buttonElement, settings);
   });
 };
 
 enableValidation(pageSettings);
 
- export { pageSettings }
+export { pageSettings };
