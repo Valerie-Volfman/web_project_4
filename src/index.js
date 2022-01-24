@@ -94,7 +94,7 @@ editButton.addEventListener("click", () => {
 
 addButton.addEventListener("click", () => {
   //checkInitialFormValidity(addCardForm, pageSettings);
-  formValidators[addCardForm.getAttribute("name") ].enableValidation(pageSettings)
+  formValidators[addCardForm].enableValidation(pageSettings)
   openPopup(popupAddCard);
 });
 
@@ -102,8 +102,8 @@ initialCards.forEach((initialCardData) => {
   createCard(initialCardData);
 });
 
-const formElement = ".popup__form";
 const pageSettings = {
+  formElement: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__save-button",
   inactiveButtonClass: "popup__save-button_disabled",
@@ -114,10 +114,10 @@ const pageSettings = {
 const formValidators = {}
 
 // enable validation
-const enableValidation = (pageSettings) => {
-  const formList = Array.from(document.querySelectorAll(pageSettings.formElement))
+const enableValidation = (settings) => {
+  const formList = Array.from(document.querySelectorAll(settings.formElement))
   formList.forEach((formElement) => {
-    const validator = new FormValidator(formElement, pageSettings)
+    const validator = new FormValidator(formElement, settings)
     // here I get the name of the form
     const formName = formElement.getAttribute("name")
 
