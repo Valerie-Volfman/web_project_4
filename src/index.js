@@ -1,7 +1,7 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import { openPopup, closePopup } from "./utils.js";
-
+const formValidators = {};
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -87,7 +87,7 @@ popupEditProfile.addEventListener("submit", (event) => {
 editButton.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
   popupInputProfession.value = profileProfession.textContent;
-  formValidators[editProfileForm.getAttribute("name")].enableValidation(
+  formValidators[editProfileForm.getAttribute("name")].toggleButtonState(
     pageSettings
   );
   //checkInitialFormValidity(editProfileForm, pageSettings);
@@ -96,7 +96,9 @@ editButton.addEventListener("click", () => {
 
 addButton.addEventListener("click", () => {
   //checkInitialFormValidity(addCardForm, pageSettings);
-  formValidators[addCardForm].enableValidation(pageSettings);
+  formValidators[addCardForm.getAttribute("name")].toggleButtonState(
+    pageSettings
+  );
   openPopup(popupAddCard);
 });
 
@@ -113,7 +115,7 @@ const pageSettings = {
   errorClass: "popup__error_visible",
 };
 
-const formValidators = {};
+// const formValidators = {};
 
 // enable validation
 const enableValidation = (settings) => {
@@ -127,17 +129,15 @@ const enableValidation = (settings) => {
     formValidators[formName] = validator;
     validator.enableValidation();
 
-    //    const inputElements = [
-    //     ...formElement.querySelectorAll(settings.inputSelector),
-    //   ];
-    //  const buttonElement = formElement.querySelector(
-    //     settings.submitButtonSelector
-    //   );
+    const inputElements = [
+      ...formElement.querySelectorAll(settings.inputSelector),
+    ];
+    const buttonElement = formElement.querySelector(
+      settings.submitButtonSelector
+    );
 
-    //   validator.toggleButtonState(inputElements, buttonElement, settings);
+    validator.toggleButtonState(inputElements, buttonElement, settings);
   });
 };
-
-enableValidation(pageSettings);
 
 export { pageSettings };
