@@ -31,30 +31,30 @@ const initialCards = [
 export const popupImage = document.querySelector(".popup_type_image-popup");
 const placesCards = document.querySelector(".places__cards");
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
-const editButton = document.querySelector(".profile__edit-button");
-const addButton = document.querySelector(".profile__add-button");
 const popupAddCard = document.querySelector(".popup_type_add-card");
 const addCardForm = popupAddCard.querySelector(".popup__form");
 const editProfileForm = popupEditProfile.querySelector(".popup__form");
 
+//DOM elements
+const cardTemplateSelector = "#card-template";
 const profileName = document.querySelector(".profile__value_type_name");
 const profileProfession = document.querySelector(
   ".profile__value_type_profession"
 );
-
 const popupInputName = document.querySelector(".popup__input_type_name");
 const popupInputProfession = document.querySelector(
   ".popup__input_type_profession"
 );
-
-//DOM elements
-const cardTemplateSelector = "#card-template";
 const popupInputCardTitle = document.querySelector(
   ".popup__input_type_card-title"
 );
 const popupInputCardLink = document.querySelector(
   ".popup__input_type_card-link"
 );
+
+//Buttons
+const editButton = document.querySelector(".profile__edit-button");
+const addButton = document.querySelector(".profile__add-button");
 
 const pageSettings = {
   formElement: ".popup__form",
@@ -64,6 +64,7 @@ const pageSettings = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
+
 //Validators
 const editFormValidator = new FormValidator(pageSettings, popupEditProfile);
 const addFormValidator = new FormValidator(pageSettings, popupAddCard);
