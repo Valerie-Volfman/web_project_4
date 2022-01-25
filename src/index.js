@@ -110,9 +110,7 @@ addButton.addEventListener("click", () => {
   openPopup(popupAddCard);
 });
 
-initialCards.forEach((initialCardData) => {
-  createCard(initialCardData);
-});
+initialCards.forEach(createCard);
 
 export { pageSettings };
 export const popupPic = popupImage.querySelector(".popup__image");
