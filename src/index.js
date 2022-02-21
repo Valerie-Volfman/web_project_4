@@ -1,10 +1,10 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-// import { openPopup, closePopup } from "./utils.js";
 import "../pages/index.css";
 import PopupWithImage from "./Popupwithimage.js";
+import Section from "./Section.js";
 
-const initialCards = [
+export const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
@@ -36,14 +36,14 @@ export const popupImage = new PopupWithImage(".popup_type_image-popup");
 
 popupImage.setEventListeners();
 
-const placesCards = document.querySelector(".places__cards");
+export const placesCards = document.querySelector(".places__cards");
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const popupAddCard = document.querySelector(".popup_type_add-card");
 // const addCardForm = popupAddCard.querySelector(".popup__form");
 // const editProfileForm = popupEditProfile.querySelector(".popup__form");
 
 //DOM elements
-const cardTemplateSelector = "#card-template";
+export const cardTemplateSelector = "#card-template";
 // const profileName = document.querySelector(".profile__value_type_name");
 // const profileProfession = document.querySelector(
 //   ".profile__value_type_profession"
@@ -79,11 +79,22 @@ const addFormValidator = new FormValidator(pageSettings, popupAddCard);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
+
+const cardList = new Section({items: initialCards,  renderer:(item) => {
+const card = new Card(item);
+cardList.addItem(card)
+}}, placesCards);
+
+// initialCards.forEach(cardList);
+
 //function for creating a new card
-function createCard(cardElement) {
-  const card = new Card(cardElement, cardTemplateSelector, popupImage.open);
-  placesCards.prepend(card.render());
-}
+// function createCard(cardElement) {
+//   const card = new Card(cardElement, cardTemplateSelector, popupImage.open);
+//   placesCards.prepend(card.render());
+// }
+
+
+
 //for adding a new card
 // popupAddCard.addEventListener("submit", (event) => {
 //   event.preventDefault();
@@ -117,7 +128,7 @@ function createCard(cardElement) {
 //   openPopup(popupAddCard);
 // });
 
-initialCards.forEach(createCard);
+// initialCards.forEach(createCard);
 
 export { pageSettings };
 export const popupPic = imagePopup.querySelector(".popup__image");
