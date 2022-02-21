@@ -1,13 +1,16 @@
-import  { openPopup }  from "./utils.js";
+// import { openPopup } from "./utils.js";
 import { popupPic, popupImageTitle, popupImage } from "./index.js";
 
 export default class Card {
-  constructor(cardData, cardTemplateSelector) {
+  constructor(cardData, cardTemplateSelector, onImageClick) {
     this._name = cardData.name;
-     this._link = cardData.link;
+    this._link = cardData.link;
+
     this._template = document
       .querySelector(cardTemplateSelector)
       .content.querySelector(".card");
+      
+    this._onImageClick = onImageClick;
   }
 
   _addEventisteners() {
@@ -29,8 +32,12 @@ export default class Card {
       .addEventListener("click", () => {
         popupPic.style.backgroundImage = `url("${this._link}")`;
         popupImageTitle.textContent = this._name;
-        openPopup(popupImage);
+        this._handlePreviewPicture();
       });
+  }
+
+  _handlePreviewPicture() {
+    this._onImageClick({ link: this.link, name: this.name })
   }
 
   render() {
