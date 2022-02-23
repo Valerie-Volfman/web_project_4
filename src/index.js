@@ -79,21 +79,26 @@ const addFormValidator = new FormValidator(pageSettings, popupAddCard);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = createCard(item).render()
 
-const cardList = new Section({items: initialCards,  renderer:(item) => {
-const card = new Card(item);
-cardList.addItem(card)
-}}, placesCards);
+      cardList.render(card)
+    },
+  },
+  placesCards
+);
+cardList.addItem();
 
 // initialCards.forEach(cardList);
 
-//function for creating a new card
-// function createCard(cardElement) {
-//   const card = new Card(cardElement, cardTemplateSelector, popupImage.open);
-//   placesCards.prepend(card.render());
-// }
-
-
+// function for creating a new card
+function createCard(cardElement) {
+  return new Card(cardElement, cardTemplateSelector, popupImage.open);
+  // placesCards.prepend(card.render());
+}
 
 //for adding a new card
 // popupAddCard.addEventListener("submit", (event) => {
