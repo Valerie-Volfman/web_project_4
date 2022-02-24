@@ -3,6 +3,7 @@ import FormValidator from "./FormValidator.js";
 import "../pages/index.css";
 import PopupWithImage from "./Popupwithimage.js";
 import Section from "./Section.js";
+import PopupWithForm from "./PopupWithForm.js";
 
 export const initialCards = [
   {
@@ -35,23 +36,24 @@ export const imagePopup = document.querySelector(".popup_type_image-popup");
 export const popupImage = new PopupWithImage(".popup_type_image-popup");
 
 popupImage.setEventListeners();
+// popupEditProfile.setEventListeners();
 
 export const placesCards = document.querySelector(".places__cards");
-const popupEditProfile = document.querySelector(".popup_type_edit-profile");
-const popupAddCard = document.querySelector(".popup_type_add-card");
-// const addCardForm = popupAddCard.querySelector(".popup__form");
-// const editProfileForm = popupEditProfile.querySelector(".popup__form");
+export const popupEditProfile = document.querySelector(".popup_type_edit-profile");
+export const popupAddCard = document.querySelector(".popup_type_add-card");
+const addCardForm = popupAddCard.querySelector(".popup__form");
+const editProfileForm = popupEditProfile.querySelector(".popup__form");
 
 //DOM elements
 export const cardTemplateSelector = "#card-template";
-// const profileName = document.querySelector(".profile__value_type_name");
-// const profileProfession = document.querySelector(
-//   ".profile__value_type_profession"
-// );
-// const popupInputName = document.querySelector(".popup__input_type_name");
-// const popupInputProfession = document.querySelector(
-//   ".popup__input_type_profession"
-// );
+export const profileName = document.querySelector(".profile__value_type_name");
+export const profileProfession = document.querySelector(
+  ".profile__value_type_profession"
+);
+export const popupInputName = document.querySelector(".popup__input_type_name");
+export const popupInputProfession = document.querySelector(
+  ".popup__input_type_profession"
+);
 // const popupInputCardTitle = document.querySelector(
 //   ".popup__input_type_card-title"
 // );
@@ -60,8 +62,8 @@ export const cardTemplateSelector = "#card-template";
 // );
 
 //Buttons
-// const editButton = document.querySelector(".profile__edit-button");
-// const addButton = document.querySelector(".profile__add-button");
+const editButton = document.querySelector(".profile__edit-button");
+const addButton = document.querySelector(".profile__add-button");
 
 const pageSettings = {
   formElement: ".popup__form",
@@ -92,6 +94,7 @@ const cardList = new Section(
 );
 cardList.addItem();
 
+
 // initialCards.forEach(cardList);
 
 // function for creating a new card
@@ -99,6 +102,11 @@ function createCard(cardElement) {
   return new Card(cardElement, cardTemplateSelector, popupImage.open);
   // placesCards.prepend(card.render());
 }
+const formRenderer = new Section({
+  data: []  // we can pass an argument with an empty array
+}, editProfileForm);
+
+
 
 //for adding a new card
 // popupAddCard.addEventListener("submit", (event) => {
@@ -114,20 +122,31 @@ function createCard(cardElement) {
 
 //   addFormValidator.resetValidation();
 // });
-//for popupEditProfile
-// popupEditProfile.addEventListener("submit", (event) => {
-//   event.preventDefault();
-//   profileName.textContent = popupInputName.value;
-//   profileProfession.textContent = popupInputProfession.value;
-//   editFormValidator.resetValidation();
-//   closePopup(popupEditProfile);
-// });
-//for opening popups
-// editButton.addEventListener("click", () => {
-//   popupInputName.value = profileName.textContent;
-//   popupInputProfession.value = profileProfession.textContent;
-//   openPopup(popupEditProfile);
-// });
+
+// for popupEditProfile
+popupEditProfile.addEventListener("submit", (event) => {
+  event.preventDefault();
+  
+  profileName.textContent = popupInputName.value;
+  profileProfession.textContent = popupInputProfession.value;
+  const form = new PopupWithForm(popupEditProfile);
+  const card = new Card(formData, form);
+  formRenderer.addItem()
+  card.render();
+  editFormValidator.resetValidation();
+  close(popupEditProfile);
+});
+
+// for opening popups
+editButton.addEventListener("click", () => {
+  popupInputName.value = profileName.textContent;
+  popupInputProfession.value = profileProfession.textContent;
+  open(popupEditProfile);
+});
+// handleFormSubmit: (formData) => {
+//   const card = new Card(formData, cardTemplateSelector);
+//   const cardElement = card.render();
+//  }
 
 // addButton.addEventListener("click", () => {
 //   openPopup(popupAddCard);
