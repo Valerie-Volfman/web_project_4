@@ -8,7 +8,7 @@ export default class Card {
     this._template = document
       .querySelector(cardTemplateSelector)
       .content.querySelector(".card");
-      
+
     this._onImageClick = onImageClick;
   }
 
@@ -36,7 +36,7 @@ export default class Card {
   }
 
   _handlePreviewPicture() {
-    this._onImageClick({ link: this.link, name: this.name })
+    this._onImageClick({ link: this.link, name: this.name });
   }
 
   render() {

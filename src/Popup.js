@@ -1,4 +1,4 @@
-import {popupEditProfile, popupAddCard} from "./index.js"
+import { popupEditProfile, popupAddCard } from "./index.js";
 
 export default class Popup {
   constructor(popupSelector) {
@@ -24,13 +24,13 @@ export default class Popup {
   close = () => {
     this._popup.classList.remove("popup__is-opened");
     document.removeEventListener("keydown", this._handleEscClose);
-  }
+  };
 
   _handleEscClose = (evt) => {
     evt.preventDefault();
 
-        if (evt.key === "Escape") {
-            this.close();
-        }
+    if (evt.key === "Escape") {
+      this.close();
     }
+  };
 }
