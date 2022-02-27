@@ -1,4 +1,4 @@
-import { popupEditProfile, popupAddCard } from "./index.js";
+import { popupSelector } from "./index.js";
 
 export default class Popup {
   constructor(popupSelector) {
@@ -6,14 +6,22 @@ export default class Popup {
   }
 
   setEventListeners() {
-    this._popup.addEventListener("click", (evt) => {
-      if (evt.target.classList.contains("popup__is-opened")) {
-        this.close();
-      }
-      if (evt.target.classList.contains("popup__close-button")) {
-        this.close();
-      }
-    });
+    this._closePopupButton = this._popup
+      .querySelector(".popup__close-button")
+      .addEventListener("click", (evt) => {
+        if (evt.target.classList.contains("popup__is-opened")) {
+          this.close();
+        }
+        if (evt.target.classList.contains("popup__close-button")) {
+          this.close();
+        }
+      });
+
+      this._popup.addEventListener("click", (evt) => {
+        if (evt.target.classList.contains("popup__is-opened")) {
+          this.close();
+        }
+      })
   }
 
   open() {

@@ -2,12 +2,12 @@ const popups = document.querySelectorAll(".popup");
 
 // popups.forEach((popup) => {
 //   popup.addEventListener("click", (evt) => {
-//     if (evt.target.classList.contains("popup__is-opened")) {
-//       closePopup(popup);
-//     }
-//     if (evt.target.classList.contains("popup__close-button")) {
-//       closePopup(popup);
-//     }
+    // if (evt.target.classList.contains("popup__is-opened")) {
+    //   closePopup(popup);
+    // }
+    // if (evt.target.classList.contains("popup__close-button")) {
+    //   closePopup(popup);
+    // }
 //   });
 // });
 
