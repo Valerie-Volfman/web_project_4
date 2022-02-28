@@ -2,7 +2,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin"); // connect plugin
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-//const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -38,14 +38,18 @@ module.exports = {
             loader: "css-loader"
           },
         ],
+      },
+      {
+        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+        type: "asset/resource"
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-        template: "./index.html" // path to our index.html file
+        template: "./src/index.html" // path to our index.html file
       }),
-      //new CleanWebpackPlugin(),
+      new CleanWebpackPlugin(),
     new MiniCssExtractPlugin()
   ],
 }

@@ -1,6 +1,3 @@
-import { cardTemplateSelector, popupImage, placesCards } from "./index.js";
-import Card from "./Card.js";
-
 export default class Section {
   constructor({ items, renderer }, placesCards) {
     this._renderedItems = items;

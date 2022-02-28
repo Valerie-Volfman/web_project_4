@@ -1,5 +1,3 @@
-import { popupSelector } from "./index.js";
-
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
@@ -17,11 +15,11 @@ export default class Popup {
         }
       });
 
-      this._popup.addEventListener("click", (evt) => {
-        if (evt.target.classList.contains("popup__is-opened")) {
-          this.close();
-        }
-      })
+    this._popup.addEventListener("click", (evt) => {
+      if (evt.target.classList.contains("popup__is-opened")) {
+        this.close();
+      }
+    });
   }
 
   open() {
@@ -35,8 +33,6 @@ export default class Popup {
   };
 
   _handleEscClose = (evt) => {
-    evt.preventDefault();
-
     if (evt.key === "Escape") {
       this.close();
     }

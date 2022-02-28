@@ -1,4 +1,4 @@
-import { popupPic, popupImageTitle } from "./index.js";
+import { popupPic, popupImageTitle } from "../index.js";
 
 export default class Card {
   constructor(cardData, cardTemplateSelector, onImageClick) {
