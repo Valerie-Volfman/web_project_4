@@ -4,7 +4,7 @@ export default class Popup {
   }
 
   setEventListeners() {
-    const closePopupButton = this._popup.querySelector(".popup__close-button")
+    const closePopupButton = this._popup.querySelector(".popup__close-button");
     closePopupButton.addEventListener("click", (evt) => {
       if (evt.target.classList.contains("popup__is-opened")) {
         this.close();
@@ -13,16 +13,6 @@ export default class Popup {
         this.close();
       }
     });
-    // this._closePopupButton = this._popup
-    //   .querySelector(".popup__close-button")
-    //   .addEventListener("click", (evt) => {
-    //     if (evt.target.classList.contains("popup__is-opened")) {
-    //       this.close();
-    //     }
-    //     if (evt.target.classList.contains("popup__close-button")) {
-    //       this.close();
-    //     }
-    //   });
 
     this._popup.addEventListener("click", (evt) => {
       if (evt.target.classList.contains("popup__is-opened")) {
