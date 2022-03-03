@@ -14,9 +14,11 @@ export default class Popup {
       }
     });
 
-    this._popup.addEventListener("click", (evt) => {
+    this._popup.addEventListener("mousedown", (evt) => {
+      this._popup.classList.add("popup__is-opened");
       if (evt.target.classList.contains("popup__is-opened")) {
-        this.close();
+        this._popup.classList.remove("popup__is-opened");
+        document.removeEventListener("mousedown", this._handleEscClose);
       }
     });
   }
