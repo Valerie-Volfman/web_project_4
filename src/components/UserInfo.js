@@ -7,7 +7,7 @@ export default class UserInfo {
   getUserInfo() {
     this._formValues = {
       name: this._profileName.textContent,
-      profession: this._profileProfession.textContent
+      profession: this._profileProfession.textContent,
     };
     return this._formValues;
   }
