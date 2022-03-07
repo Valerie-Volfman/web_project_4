@@ -34,10 +34,10 @@ export const initialCards = [
   },
 ];
 //Wrappers
-export const imagePopup = document.querySelector(".popup_type_image-popup");
-export const popupImage = new PopupWithImage(".popup_type_image-popup");
+export const imagePopupElement = document.querySelector(".popup_type_image-popup");
+export const imagePopup = new PopupWithImage(".popup_type_image-popup");
 
-popupImage.setEventListeners();
+imagePopup.setEventListeners();
 
 export const placesCards = document.querySelector(".places__cards");
 export const popupEditProfile = document.querySelector(
@@ -95,7 +95,7 @@ cardList.render();
 
 // function for creating a new card
 export function createCard(cardElement) {
-  return new Card(cardElement, cardTemplateSelector, popupImage.open);
+  return new Card(cardElement, cardTemplateSelector, imagePopup.open);
 }
 
 export const addCardPopup = new PopupWithForm(
@@ -141,5 +141,5 @@ addButton.addEventListener("click", () => {
 });
 
 export { pageSettings };
-export const popupPic = imagePopup.querySelector(".popup__image");
-export const popupImageTitle = imagePopup.querySelector(".popup__image-title");
+export const popupPic = imagePopupElement.querySelector(".popup__image");
+export const popupImageTitle = imagePopupElement.querySelector(".popup__image-title");
