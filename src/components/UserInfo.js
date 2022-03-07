@@ -5,11 +5,10 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    this._inputList = this._formElement.querySelectorAll(".form__input");
-    this._formValues = {};
-    this._inputList.forEach((input) => {
-      this._formValues[input.value] = input.textContent;
-    });
+    this._formValues = {
+      name: this._profileName.textContent,
+      profession: this._profileProfession.textContent
+    };
     return this._formValues;
   }
 
