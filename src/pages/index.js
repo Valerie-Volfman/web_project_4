@@ -6,46 +6,14 @@ import PopupWithImage from "../components/Popupwithimage.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import { initialCards, pageSettings } from "../utils/constants.js"
 
-export const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];
-//Wrappers
-export const imagePopupElement = document.querySelector(".popup_type_image-popup");
-export const imagePopup = new PopupWithImage(".popup_type_image-popup");
 
-imagePopup.setEventListeners();
-
+/**Wrappers */
 export const placesList = document.querySelector(".places__cards");
-export const popupEditProfile = document.querySelector(
-  ".popup_type_edit-profile"
-);
-export const popupAddCard = document.querySelector(".popup_type_add-card");
 
-//DOM elements
+/**DOM elements */
+
 export const cardTemplateSelector = "#card-template";
 export const profileName = document.querySelector(".profile__value_type_name");
 export const profileProfession = document.querySelector(
@@ -57,20 +25,20 @@ export const popupInputProfession = document.querySelector(
   ".popup__input_type_profession"
 );
 
-//Buttons
+/**Popups */
+export const popupEditProfile = document.querySelector(
+  ".popup_type_edit-profile"
+);
+export const popupAddCard = document.querySelector(".popup_type_add-card");
+export const imagePopupElement = document.querySelector(".popup_type_image-popup");
+export const imagePopup = new PopupWithImage(".popup_type_image-popup");
+imagePopup.setEventListeners();
+
+/**Buttons */
 const editButton = document.querySelector(".profile__edit-button");
 const addButton = document.querySelector(".profile__add-button");
 
-const pageSettings = {
-  formElement: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save-button",
-  inactiveButtonClass: "popup__save-button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
-
-//Validators
+/**Validators */
 export const editFormValidator = new FormValidator(
   pageSettings,
   popupEditProfile
@@ -80,6 +48,7 @@ export const addFormValidator = new FormValidator(pageSettings, popupAddCard);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
+/**This is a description of the new Section function. */
 export const cardList = new Section(
   {
     items: initialCards,
@@ -93,17 +62,18 @@ export const cardList = new Section(
 );
 cardList.render();
 
-// function for creating a new card
+/**This is a description of the createCard function. */
 export function createCard(cardElement) {
   return new Card(cardElement, cardTemplateSelector, imagePopup.open);
 }
 
+/**Represents AddCardPopup */
 export const addCardPopup = new PopupWithForm(
   ".popup_type_add-card",
   handleAddCardFormSubmit
 );
 addCardPopup.setEventListeners();
-
+/**This is a description of the handleAddCardFormSubmit function. */
 function handleAddCardFormSubmit() {
   const newCard = {
     link: addCardPopup._formValues.popupInputCardLink,
@@ -113,7 +83,7 @@ function handleAddCardFormSubmit() {
   cardList.addItem(card);
   addCardPopup.close();
 }
-//for editProfilePopup
+/**Represents EditProfilePopup */
 export const userInfo = new UserInfo({ profileName, profileProfession });
 
 export const editProfilePopup = new PopupWithForm(
@@ -122,13 +92,13 @@ export const editProfilePopup = new PopupWithForm(
 );
 editProfilePopup.setEventListeners();
 
+/**This is a description of the handleProfileFormSubmit function. */
 function handleProfileFormSubmit() {
-
   userInfo.setUserInfo(editProfilePopup._formValues);
   editProfilePopup.close();
 }
 
-// for opening popups***
+/**This is a description of the opening popups functions. */
 editButton.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
   popupInputProfession.value = profileProfession.textContent;
@@ -140,6 +110,5 @@ addButton.addEventListener("click", () => {
   addCardPopup.open();
 });
 
-export { pageSettings };
 export const popupPic = imagePopupElement.querySelector(".popup__image");
 export const popupImageTitle = imagePopupElement.querySelector(".popup__image-title");
