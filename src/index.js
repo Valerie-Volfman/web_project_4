@@ -71,13 +71,16 @@ const pageSettings = {
 };
 
 //Validators
-const editFormValidator = new FormValidator(pageSettings, popupEditProfile);
-const addFormValidator = new FormValidator(pageSettings, popupAddCard);
+export const editFormValidator = new FormValidator(
+  pageSettings,
+  popupEditProfile
+);
+export const addFormValidator = new FormValidator(pageSettings, popupAddCard);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
-const cardList = new Section(
+export const cardList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
@@ -91,18 +94,17 @@ const cardList = new Section(
 cardList.addItem();
 
 // function for creating a new card
-function createCard(cardElement) {
+export function createCard(cardElement) {
   return new Card(cardElement, cardTemplateSelector, popupImage.open);
 }
 
-const addCardPopup = new PopupWithForm(
+export const addCardPopup = new PopupWithForm(
   ".popup_type_add-card",
-  handleFormSubmit
+  handleAddCardFormSubmit
 );
 addCardPopup.setEventListeners();
-//for adding a new card
-popupAddCard.addEventListener("submit", (evt) => {
-  evt.preventDefault();
+
+function handleAddCardFormSubmit() {
   const newCard = {
     link: addCardPopup._formValues.popupInputCardLink,
     name: addCardPopup._formValues.popupInputCardTitle,
@@ -110,25 +112,21 @@ popupAddCard.addEventListener("submit", (evt) => {
   const card = createCard(newCard).render();
   cardList.render(card);
   addCardPopup.close();
-});
+}
+//for editProfilePopup
+export const userInfo = new UserInfo({ profileName, profileProfession });
 
-function handleFormSubmit() {}
-
-const userInfo = new UserInfo({ profileName, profileProfession });
-
-const editProfilePopup = new PopupWithForm(
+export const editProfilePopup = new PopupWithForm(
   ".popup_type_edit-profile",
-  handleFormSubmit
+  handleProfileFormSubmit
 );
 editProfilePopup.setEventListeners();
 
-// for popupEditProfile
-popupEditProfile.addEventListener("submit", (evt) => {
-  evt.preventDefault();
+function handleProfileFormSubmit() {
 
   userInfo.setUserInfo(editProfilePopup._formValues);
   editProfilePopup.close();
-});
+}
 
 // for opening popups***
 editButton.addEventListener("click", () => {
@@ -138,6 +136,7 @@ editButton.addEventListener("click", () => {
 });
 
 addButton.addEventListener("click", () => {
+  addFormValidator.resetValidation();
   addCardPopup.open();
 });
 
