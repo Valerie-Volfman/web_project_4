@@ -39,7 +39,7 @@ export const imagePopup = new PopupWithImage(".popup_type_image-popup");
 
 imagePopup.setEventListeners();
 
-export const placesCards = document.querySelector(".places__cards");
+export const placesList = document.querySelector(".places__cards");
 export const popupEditProfile = document.querySelector(
   ".popup_type_edit-profile"
 );
@@ -89,7 +89,7 @@ export const cardList = new Section(
       cardList.addItem(card);
     },
   },
-  placesCards
+  placesList
 );
 cardList.render();
 
