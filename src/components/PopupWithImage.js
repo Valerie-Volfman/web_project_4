@@ -9,7 +9,7 @@ export default class PopupWithImage extends Popup {
     this.name = name;
     this.link = `url("${link}")`;
 
-    this._popup.classList.add("popup__is-opened");
+    super.open();
     document.addEventListener("keydown", this._handleEscClose);
   };
 }
