@@ -1,11 +1,11 @@
-import Card from "./components/Card.js";
-import FormValidator from "./components/FormValidator.js";
-import "../src/pages/index.css";
-import logo from "./images/Logo.svg";
-import PopupWithImage from "./components/Popupwithimage.js";
-import Section from "./components/Section.js";
-import PopupWithForm from "./components/PopupWithForm.js";
-import UserInfo from "./components/UserInfo.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import "../pages/index.css";
+import logo from "../images/Logo.svg";
+import PopupWithImage from "../components/Popupwithimage.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 
 export const initialCards = [
   {
