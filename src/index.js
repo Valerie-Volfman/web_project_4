@@ -86,12 +86,12 @@ export const cardList = new Section(
     renderer: (item) => {
       const card = createCard(item).render();
 
-      cardList.render(card);
+      cardList.addItem(card);
     },
   },
   placesCards
 );
-cardList.addItem();
+cardList.render();
 
 // function for creating a new card
 export function createCard(cardElement) {
@@ -110,7 +110,7 @@ function handleAddCardFormSubmit() {
     name: addCardPopup._formValues.popupInputCardTitle,
   };
   const card = createCard(newCard).render();
-  cardList.render(card);
+  cardList.addItem(card);
   addCardPopup.close();
 }
 //for editProfilePopup
