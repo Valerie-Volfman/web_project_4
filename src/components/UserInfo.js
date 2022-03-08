@@ -5,11 +5,11 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    this._formValues = {
+    const userInfo = {
       name: this._profileName.textContent,
       profession: this._profileProfession.textContent,
     };
-    return this._formValues;
+    return userInfo;
   }
 
   setUserInfo(popupInputName) {
