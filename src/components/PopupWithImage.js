@@ -10,6 +10,5 @@ export default class PopupWithImage extends Popup {
     this.link = `url("${link}")`;
 
     super.open();
-    document.addEventListener("keydown", this._handleEscClose);
   };
 }
