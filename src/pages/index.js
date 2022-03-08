@@ -77,8 +77,8 @@ addCardPopup.setEventListeners();
 /**This is a description of the handleAddCardFormSubmit function. */
 function handleAddCardFormSubmit() {
   const newCard = {
-    link: addCardPopup._formValues.popupInputCardLink,
-    name: addCardPopup._formValues.popupInputCardTitle,
+    link: addCardPopup._getInputValues().popupInputCardLink,
+    name: addCardPopup._getInputValues().popupInputCardTitle,
   };
   const card = createCard(newCard).render();
   cardList.addItem(card);
@@ -95,7 +95,7 @@ editProfilePopup.setEventListeners();
 
 /**This is a description of the handleProfileFormSubmit function. */
 function handleProfileFormSubmit() {
-  userInfo.setUserInfo(editProfilePopup._formValues);
+  userInfo.setUserInfo(editProfilePopup._getInputValues());
   editProfilePopup.close();
 }
 
