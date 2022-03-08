@@ -6,8 +6,7 @@ import PopupWithImage from "../components/Popupwithimage.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import { initialCards, pageSettings } from "../utils/constants.js"
-
+import { initialCards, pageSettings } from "../utils/constants.js";
 
 /**Wrappers */
 export const placesList = document.querySelector(".places__cards");
@@ -30,7 +29,9 @@ export const popupEditProfile = document.querySelector(
   ".popup_type_edit-profile"
 );
 export const popupAddCard = document.querySelector(".popup_type_add-card");
-export const imagePopupElement = document.querySelector(".popup_type_image-popup");
+export const imagePopupElement = document.querySelector(
+  ".popup_type_image-popup"
+);
 export const imagePopup = new PopupWithImage(".popup_type_image-popup");
 imagePopup.setEventListeners();
 
@@ -111,4 +112,6 @@ addButton.addEventListener("click", () => {
 });
 
 export const popupPic = imagePopupElement.querySelector(".popup__image");
-export const popupImageTitle = imagePopupElement.querySelector(".popup__image-title");
+export const popupImageTitle = imagePopupElement.querySelector(
+  ".popup__image-title"
+);
