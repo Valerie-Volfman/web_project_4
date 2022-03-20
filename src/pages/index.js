@@ -6,7 +6,8 @@ import PopupWithImage from "../components/Popupwithimage.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import { initialCards, pageSettings } from "../utils/constants.js";
+import { pageSettings } from "../utils/constants.js";
+import Api from "../utils/Api"
 
 /**Wrappers */
 export const placesList = document.querySelector(".places__cards");
@@ -52,7 +53,7 @@ addFormValidator.enableValidation();
 /**This is a description of the new Section function. */
 export const cardList = new Section(
   {
-    items: initialCards,
+    items: [],
     renderer: (item) => {
       const card = createCard(item).render();
 
@@ -61,7 +62,7 @@ export const cardList = new Section(
   },
   placesList
 );
-cardList.render();
+// cardList.render();
 
 /**This is a description of the createCard function. */
 export function createCard(cardElement) {
@@ -109,6 +110,20 @@ editButton.addEventListener("click", () => {
 addButton.addEventListener("click", () => {
   addFormValidator.resetValidation();
   addCardPopup.open();
+});
+
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-12",
+  headers: {
+    authorization: "2911a1a5-67c1-4d46-aa09-949272fd93e2",
+    "Content-Type": "application/json"
+  }
+});
+
+api
+.getInitialCards()
+.then((cards) => {
+  cardList.render(Array.from(cards));
 });
 
 export const popupPic = imagePopupElement.querySelector(".popup__image");
