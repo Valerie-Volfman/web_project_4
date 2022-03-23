@@ -37,6 +37,27 @@ export default class Api {
         }
       }
 
+      async editUserData() {
+          try {
+              const response = await fetch(`${this._baseUrl}/users/me`, {
+                  method: "PATCH",
+                  headers: this._headers,
+                  "Content-Type": "application/json",
+                  body: JSON.stringify({
+                      name: "Valerie V",
+                      about: "Web Developer"
+                  })
+              });
+              if (response.ok) {
+                return response.json();
+            } else {
+              console.log("Something went wrong", response.status, response.statusText)
+            }
+          } catch (error) {
+              console.log("CAUGHT ERROR", error);
+          }
+          }
+
       async addCard(name, link) {
           try {
           const response = await fetch(`${this._baseUrl}/cards`, {

@@ -107,8 +107,11 @@ export const editProfilePopup = new PopupWithForm(
 editProfilePopup.setEventListeners();
 
 /**This is a description of the handleProfileFormSubmit function. */
-function handleProfileFormSubmit() {
-  userInfo.setUserInfo(editProfilePopup._getInputValues());
+async function handleProfileFormSubmit(data) {
+  await api.editUserData(editProfilePopup._getInputValues());
+  if (data) {
+    userInfo.setUserInfo(data);
+  }
   editProfilePopup.close();
 }
 
