@@ -124,22 +124,16 @@ addButton.addEventListener("click", () => {
   addCardPopup.open();
 });
 
+async function init() {
+  const [cards, userData] = await Promise.all([
+    api.getInitialCards(),
+    api.getUserData()
+  ])
 
-
-api
-.getInitialCards()
-.then((cards) => {
   cardList.render(Array.from(cards));
-});
-
-api
-.getUserData(editProfilePopup._getInputValues())
-.then((userData) => {
   userInfo.setUserInfo({ popupInputName: userData.name, popupInputProfession: userData.about });
-  
-})
-
-
+}
+init()
 
 export const popupPic = imagePopupElement.querySelector(".popup__image");
 export const popupImageTitle = imagePopupElement.querySelector(
