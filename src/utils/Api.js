@@ -4,17 +4,47 @@ export default class Api {
       this._headers = options.headers;
     }
   
-    getInitialCards() {
-        return fetch(`${this._baseUrl}/cards`, {
-            method: "GET",
+    async getInitialCards() {
+        const response = await fetch(`${this._baseUrl}/cards`, {
           headers: this._headers,
-        })
-          .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-          });
+        });
+          
+        if (response.ok) {
+            return response.json()
+        } else {
+            console.log("Something went wrong", response.status, response.statusText)
+        }
       }
-  
+      
+
+      async getUserData() {
+          const response = await fetch(`${this._baseUrl}/users/me`, {
+            headers: this._headers,
+          });
+            
+          if (response.ok) {
+              return response.json()
+          } else {
+              console.log("Something went wrong", response.status, response.statusText)
+          }
+      }
+
+      async addCard(name, link) {
+          const response = await fetch(`${this._baseUrl}/cards`, {
+              method: "POST",
+              headers: this._headers,
+              "Content-Type": "application/json",
+              body: JSON.stringify({
+                    name: name,
+                    link: link
+              })
+          });
+
+          if (response.ok) {
+              return response.json();
+          } else {
+            console.log("Something went wrong", response.status, response.statusText)
+          }
+      }
     // other methods for working with the API
   }

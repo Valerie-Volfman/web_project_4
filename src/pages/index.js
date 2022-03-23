@@ -8,6 +8,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { pageSettings } from "../utils/constants.js";
 import Api from "../utils/Api"
+import { data } from "autoprefixer";
 
 /**Wrappers */
 export const placesList = document.querySelector(".places__cards");
@@ -50,6 +51,14 @@ export const addFormValidator = new FormValidator(pageSettings, popupAddCard);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-12",
+  headers: {
+    authorization: "2911a1a5-67c1-4d46-aa09-949272fd93e2",
+    "Content-Type": "application/json"
+  }
+});
+
 /**This is a description of the new Section function. */
 export const cardList = new Section(
   {
@@ -76,13 +85,16 @@ export const addCardPopup = new PopupWithForm(
 );
 addCardPopup.setEventListeners();
 /**This is a description of the handleAddCardFormSubmit function. */
-function handleAddCardFormSubmit() {
+async function handleAddCardFormSubmit () {
   const newCard = {
     link: addCardPopup._getInputValues().popupInputCardLink,
     name: addCardPopup._getInputValues().popupInputCardTitle,
   };
+  await api.addCard(newCard.name, newCard.link)
   const card = createCard(newCard).render();
+  if (card) {
   cardList.addItem(card);
+  }
   addCardPopup.close();
 }
 /**Represents EditProfilePopup */
@@ -112,19 +124,22 @@ addButton.addEventListener("click", () => {
   addCardPopup.open();
 });
 
-const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1/group-12",
-  headers: {
-    authorization: "2911a1a5-67c1-4d46-aa09-949272fd93e2",
-    "Content-Type": "application/json"
-  }
-});
+
 
 api
 .getInitialCards()
 .then((cards) => {
   cardList.render(Array.from(cards));
 });
+
+api
+.getUserData(editProfilePopup._getInputValues())
+.then((userData) => {
+  userInfo.setUserInfo({ popupInputName: userData.name, popupInputProfession: userData.about });
+  
+})
+
+
 
 export const popupPic = imagePopupElement.querySelector(".popup__image");
 export const popupImageTitle = imagePopupElement.querySelector(

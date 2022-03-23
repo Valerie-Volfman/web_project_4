@@ -12,8 +12,8 @@ export default class UserInfo {
     return userInfo;
   }
 
-  setUserInfo(popupInputName) {
-    this._profileName.textContent = popupInputName.popupInputName;
-    this._profileProfession.textContent = popupInputName.popupInputProfession;
+  setUserInfo(userData) {
+    this._profileName.textContent = userData.popupInputName;
+    this._profileProfession.textContent = userData.popupInputProfession;
   }
 }
