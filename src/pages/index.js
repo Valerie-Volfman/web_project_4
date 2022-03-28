@@ -7,7 +7,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { pageSettings } from "../utils/constants.js";
-import Api from "../utils/Api"
+import Api from "../utils/Api";
 
 /**Wrappers */
 export const placesList = document.querySelector(".places__cards");
@@ -56,31 +56,31 @@ const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-12",
   headers: {
     authorization: "2911a1a5-67c1-4d46-aa09-949272fd93e2",
-    "Content-Type": "application/json"
-  }
+    "Content-Type": "application/json",
+  },
 });
 
 async function init() {
   const [cards, userData] = await Promise.all([
     api.getInitialCards(),
-    api.getUserData()
-  ])
+    api.getUserData(),
+  ]);
   newUserData = userData;
   cardList.render(Array.from(cards));
-  userInfo.setUserInfo({ popupInputName: userData.name, popupInputProfession: userData.about });
-  
-  console.log(userData, cards)
-  return cards, userData
+  userInfo.setUserInfo({
+    popupInputName: userData.name,
+    popupInputProfession: userData.about,
+  });
+  return cards, userData;
 }
-init()
+init();
 
 /**This is a description of the new Section function. */
 export const cardList = new Section(
   {
     items: [],
     renderer: (item) => {
-      const card = createCard(item).render(newUserData)
-
+      const card = createCard(item).render(newUserData);
       cardList.addItem(card);
     },
   },
@@ -103,15 +103,15 @@ export const addCardPopup = new PopupWithForm(
 );
 addCardPopup.setEventListeners();
 /**This is a description of the handleAddCardFormSubmit function. */
-async function handleAddCardFormSubmit () {
+async function handleAddCardFormSubmit() {
   const newCard = {
     link: addCardPopup._getInputValues().popupInputCardLink,
     name: addCardPopup._getInputValues().popupInputCardTitle,
   };
-  await api.addCard(newCard.name, newCard.link)
+  await api.addCard(newCard.name, newCard.link);
   const card = createCard(newCard).render();
   if (card) {
-  cardList.addItem(card);
+    cardList.addItem(card);
   }
   addCardPopup.close();
 }
@@ -146,13 +146,17 @@ async function handleProfileFormSubmit(data) {
 //   }
 
 export async function addLike(cardData) {
-  await api.addLikes(cardData)
-  cardData._addCardLikes(cardData)
+  await api.addLikes(cardData).then((res) => {
+    cardData.updateLikes(res);
+    console.log(res);
+  });
 }
 
 export async function deleteLike(cardData) {
-await api.removeLikes(cardData)
-cardData._deleteCardLikes(cardData)
+  await api.removeLikes(cardData).then((res) => {
+    cardData.updateLikes(res);
+    console.log(res);
+  });
 }
 
 /**This is a description of the opening popups functions. */
@@ -166,8 +170,6 @@ addButton.addEventListener("click", () => {
   addFormValidator.resetValidation();
   addCardPopup.open();
 });
-
-
 
 export const popupPic = imagePopupElement.querySelector(".popup__image");
 export const popupImageTitle = imagePopupElement.querySelector(
