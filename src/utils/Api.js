@@ -79,5 +79,39 @@ export default class Api {
             console.log("CAUGHT ERROR", error);
         }
       }
+
+      async addLikes(userData) {
+          try {
+            const response = await fetch(`${this._baseUrl}/cards/likes/${userData._id}`, {
+                method: "PUT",
+                headers: this._headers,
+              });
+                
+              if (response.ok) {
+                  return response.json()
+              } else {
+                  console.log("Something went wrong", response.status, response.statusText)
+              }
+            } catch (error) {
+                console.log("CAUGHT ERROR", error);
+            }
+          }
+
+          async removeLikes(userData) {
+            try {
+              const response = await fetch(`${this._baseUrl}/cards/likes/${userData._id}`, {
+                  method: "DELETE",
+                  headers: this._headers,
+                });
+                  
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    console.log("Something went wrong", response.status, response.statusText)
+                }
+              } catch (error) {
+                  console.log("CAUGHT ERROR", error);
+              }
+            }
     // other methods for working with the API
   }

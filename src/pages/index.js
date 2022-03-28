@@ -8,7 +8,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { pageSettings } from "../utils/constants.js";
 import Api from "../utils/Api"
-import { data } from "autoprefixer";
 
 /**Wrappers */
 export const placesList = document.querySelector(".places__cards");
@@ -25,6 +24,8 @@ export const popupInputName = document.querySelector(".popup__input_type_name");
 export const popupInputProfession = document.querySelector(
   ".popup__input_type_profession"
 );
+
+let newUserData = {};
 
 /**Popups */
 export const popupEditProfile = document.querySelector(
@@ -59,12 +60,26 @@ const api = new Api({
   }
 });
 
+async function init() {
+  const [cards, userData] = await Promise.all([
+    api.getInitialCards(),
+    api.getUserData()
+  ])
+  newUserData = userData;
+  cardList.render(Array.from(cards));
+  userInfo.setUserInfo({ popupInputName: userData.name, popupInputProfession: userData.about });
+  
+  console.log(userData, cards)
+  return cards, userData
+}
+init()
+
 /**This is a description of the new Section function. */
 export const cardList = new Section(
   {
     items: [],
     renderer: (item) => {
-      const card = createCard(item).render();
+      const card = createCard(item).render(newUserData)
 
       cardList.addItem(card);
     },
@@ -76,6 +91,9 @@ export const cardList = new Section(
 /**This is a description of the createCard function. */
 export function createCard(cardElement) {
   return new Card(cardElement, cardTemplateSelector, imagePopup.open);
+  // const item = new Card(cardElement, cardTemplateSelector, imagePopup.open)
+  //  cardElement = item.render(userData)
+  // return cardElement;
 }
 
 /**Represents AddCardPopup */
@@ -115,6 +133,28 @@ async function handleProfileFormSubmit(data) {
   editProfilePopup.close();
 }
 
+// export async function handleLikeButton(cardData, addLike) {
+//   await Promise.all([
+//     api.addLikes(cardData),
+//     api.removeLikes(cardData)
+//   ])
+//   if (addLike) {
+//   cardData._addCardLikes(cardData)
+//   } else {
+//   cardData._deleteCardLikes(cardData)
+//   }
+//   }
+
+export async function addLike(cardData) {
+  await api.addLikes(cardData)
+  cardData._addCardLikes(cardData)
+}
+
+export async function deleteLike(cardData) {
+await api.removeLikes(cardData)
+cardData._deleteCardLikes(cardData)
+}
+
 /**This is a description of the opening popups functions. */
 editButton.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
@@ -127,16 +167,7 @@ addButton.addEventListener("click", () => {
   addCardPopup.open();
 });
 
-async function init() {
-  const [cards, userData] = await Promise.all([
-    api.getInitialCards(),
-    api.getUserData()
-  ])
 
-  cardList.render(Array.from(cards));
-  userInfo.setUserInfo({ popupInputName: userData.name, popupInputProfession: userData.about });
-}
-init()
 
 export const popupPic = imagePopupElement.querySelector(".popup__image");
 export const popupImageTitle = imagePopupElement.querySelector(
