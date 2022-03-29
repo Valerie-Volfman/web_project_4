@@ -91,9 +91,6 @@ export const cardList = new Section(
 /**This is a description of the createCard function. */
 export function createCard(cardElement) {
   return new Card(cardElement, cardTemplateSelector, imagePopup.open);
-  // const item = new Card(cardElement, cardTemplateSelector, imagePopup.open)
-  //  cardElement = item.render(userData)
-  // return cardElement;
 }
 
 /**Represents AddCardPopup */
@@ -132,18 +129,6 @@ async function handleProfileFormSubmit(data) {
   }
   editProfilePopup.close();
 }
-
-// export async function handleLikeButton(cardData, addLike) {
-//   await Promise.all([
-//     api.addLikes(cardData),
-//     api.removeLikes(cardData)
-//   ])
-//   if (addLike) {
-//   cardData._addCardLikes(cardData)
-//   } else {
-//   cardData._deleteCardLikes(cardData)
-//   }
-//   }
 
 export async function addLike(cardData) {
   await api.addLikes(cardData).then((res) => {
