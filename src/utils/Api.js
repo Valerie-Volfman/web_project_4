@@ -130,5 +130,7 @@ export default class Api {
                 console.log("CAUGHT ERROR", error);
             }
             }
+
+            
     // other methods for working with the API
   }

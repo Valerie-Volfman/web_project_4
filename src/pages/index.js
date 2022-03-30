@@ -37,7 +37,9 @@ export const popupAddCard = document.querySelector(".popup_type_add-card");
 export const imagePopupElement = document.querySelector(
   ".popup_type_image-popup"
 );
-export const removePopupElement = document.querySelector(".popup_type_remove-popup");
+export const removePopupElement = document.querySelector(
+  ".popup_type_remove-popup"
+);
 export const imagePopup = new PopupWithImage(".popup_type_image-popup");
 imagePopup.setEventListeners();
 
@@ -112,7 +114,12 @@ export const cardList = new Section(
 
 /**This is a description of the createCard function. */
 export function createCard(cardElement) {
-  return new Card(cardElement, cardTemplateSelector, imagePopup.open, handleRemoveCardClick);
+  return new Card(
+    cardElement,
+    cardTemplateSelector,
+    imagePopup.open,
+    handleRemoveCardClick
+  );
 }
 
 /**Represents AddCardPopup */
@@ -121,11 +128,17 @@ async function handleAddCardFormSubmit() {
     link: addCardPopup._getInputValues().popupInputCardLink,
     name: addCardPopup._getInputValues().popupInputCardTitle,
   };
-  await api.addCard(newCard.name, newCard.link);
-  const card = createCard(newCard).render();
-  if (card) {
-    cardList.addItem(card);
-  }
+  await api
+    .addCard(newCard.name, newCard.link)
+    .then((res) => {
+      console.log(res)
+      cardList.addItem(createCard(res).render());
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   addCardPopup.close();
 }
 /**Represents RemoveCardPopup */
@@ -137,17 +150,25 @@ async function handleRemoveCardFormSubmit(data) {
   await api.removeCard(data).then((res) => {
     data.deleteCard(res);
     removeCardPopup.closeMessage();
-  })
+  });
 }
 
 /**Represents EditProfilePopup */
-async function handleProfileFormSubmit(data) {
-  await api.editUserData(editProfilePopup._getInputValues());
-  if (data) {
-    userInfo.setUserInfo(data);
+async function handleProfileFormSubmit() {
+  const userData = {
+    name: editProfilePopup._getInputValues().popupInputName,
+    about: editProfilePopup._getInputValues().popupInputProfession,
   }
-  editProfilePopup.close();
-}
+  await api.editUserData(userData.name, userData.about)
+  .then((res) => {
+    console.log(res)
+    userInfo.setUserInfo({
+      popupInputName: userData.name,
+      popupInputProfession: userData.about,
+  })
+  editProfilePopup.close()
+  return userData
+})}
 /**Represents Likes */
 export async function addLike(cardData) {
   await api.addLikes(cardData).then((res) => {

@@ -6,14 +6,19 @@ import {
 } from "../pages/index.js";
 
 export default class Card {
-  constructor(cardData, cardTemplateSelector, onImageClick, handleRemoveCardClick) {
+  constructor(
+    cardData,
+    cardTemplateSelector,
+    onImageClick,
+    handleRemoveCardClick
+  ) {
     this._name = cardData.name;
     this._link = cardData.link;
     this._likes = cardData.likes;
     this._id = cardData._id;
     this._ownerId = cardData.owner._id;
     this._cardData = cardData;
-    
+
     this._template = document
       .querySelector(cardTemplateSelector)
       .content.querySelector(".card");
@@ -41,18 +46,16 @@ export default class Card {
     this._element
       .querySelector(".card__delete-button")
       .addEventListener("click", (event) => {
-        event.stopPropagation()
+        event.stopPropagation();
         this._handleRemoveCardClick(this);
-        console.log(this)
-        
       });
 
-      // this._element
-      // .querySelector(".card__delete-button")
-      // .addEventListener("click", (event) => {
-      //   event.stopPropagation();
-      //   this._element.remove();
-      // });
+    // this._element
+    // .querySelector(".card__delete-button")
+    // .addEventListener("click", (event) => {
+    //   event.stopPropagation();
+    //   this._element.remove();
+    // });
 
     this._likeButton.addEventListener("click", () => {
       const isLiked = this._likeButton.classList.contains("card__like_active");
