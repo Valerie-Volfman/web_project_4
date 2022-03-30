@@ -8,6 +8,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { pageSettings } from "../utils/constants.js";
 import Api from "../utils/Api";
+import Popup from "../components/Popup.js";
 
 /**Wrappers */
 export const placesList = document.querySelector(".places__cards");
@@ -24,6 +25,7 @@ export const popupInputName = document.querySelector(".popup__input_type_name");
 export const popupInputProfession = document.querySelector(
   ".popup__input_type_profession"
 );
+const submitButton = document.querySelector(".popup__save-button");
 
 let newUserData = {};
 
@@ -35,6 +37,7 @@ export const popupAddCard = document.querySelector(".popup_type_add-card");
 export const imagePopupElement = document.querySelector(
   ".popup_type_image-popup"
 );
+export const removePopupElement = document.querySelector(".popup_type_remove-popup");
 export const imagePopup = new PopupWithImage(".popup_type_image-popup");
 imagePopup.setEventListeners();
 
@@ -51,6 +54,26 @@ export const addFormValidator = new FormValidator(pageSettings, popupAddCard);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+/**Popups Instances */
+export const userInfo = new UserInfo({ profileName, profileProfession });
+
+export const editProfilePopup = new PopupWithForm(
+  ".popup_type_edit-profile",
+  handleProfileFormSubmit
+);
+editProfilePopup.setEventListeners();
+
+export const addCardPopup = new PopupWithForm(
+  ".popup_type_add-card",
+  handleAddCardFormSubmit
+);
+addCardPopup.setEventListeners();
+
+export const removeCardPopup = new PopupWithForm(
+  ".popup_type_remove-popup",
+  handleRemoveCardFormSubmit
+);
+removeCardPopup.setEventListeners();
 
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-12",
@@ -59,7 +82,7 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
+/**Initial data */
 async function init() {
   const [cards, userData] = await Promise.all([
     api.getInitialCards(),
@@ -86,20 +109,13 @@ export const cardList = new Section(
   },
   placesList
 );
-// cardList.render();
 
 /**This is a description of the createCard function. */
 export function createCard(cardElement) {
-  return new Card(cardElement, cardTemplateSelector, imagePopup.open);
+  return new Card(cardElement, cardTemplateSelector, imagePopup.open, handleRemoveCardClick);
 }
 
 /**Represents AddCardPopup */
-export const addCardPopup = new PopupWithForm(
-  ".popup_type_add-card",
-  handleAddCardFormSubmit
-);
-addCardPopup.setEventListeners();
-/**This is a description of the handleAddCardFormSubmit function. */
 async function handleAddCardFormSubmit() {
   const newCard = {
     link: addCardPopup._getInputValues().popupInputCardLink,
@@ -112,16 +128,19 @@ async function handleAddCardFormSubmit() {
   }
   addCardPopup.close();
 }
+/**Represents RemoveCardPopup */
+function handleRemoveCardClick(message) {
+  removeCardPopup.openMessage(message);
+}
+
+async function handleRemoveCardFormSubmit(data) {
+  await api.removeCard(data).then((res) => {
+    data.deleteCard(res);
+    removeCardPopup.closeMessage();
+  })
+}
+
 /**Represents EditProfilePopup */
-export const userInfo = new UserInfo({ profileName, profileProfession });
-
-export const editProfilePopup = new PopupWithForm(
-  ".popup_type_edit-profile",
-  handleProfileFormSubmit
-);
-editProfilePopup.setEventListeners();
-
-/**This is a description of the handleProfileFormSubmit function. */
 async function handleProfileFormSubmit(data) {
   await api.editUserData(editProfilePopup._getInputValues());
   if (data) {
@@ -129,7 +148,7 @@ async function handleProfileFormSubmit(data) {
   }
   editProfilePopup.close();
 }
-
+/**Represents Likes */
 export async function addLike(cardData) {
   await api.addLikes(cardData).then((res) => {
     cardData.updateLikes(res);

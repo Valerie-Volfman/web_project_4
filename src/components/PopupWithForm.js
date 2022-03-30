@@ -7,6 +7,19 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
   }
 
+  openMessage(message) {
+    super.open();
+    if (message) {
+      this._message = message;
+      console.log(message)
+    }
+  }
+
+  closeMessage() {
+    this._submitButton.textContent = buttonText;
+    super.close()
+  }
+
   _getInputValues() {
     const data = {};
     const inputList = this._formElement.querySelectorAll(".popup__input");
@@ -17,8 +30,12 @@ export default class PopupWithForm extends Popup {
   }
   setEventListeners() {
     super.setEventListeners();
-    this._formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault();
+    this._popup.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this._submitButton = this._popup.querySelector(".popup__save-button");
+      this._submitButton.textContent = "Saving...";
+      this._handleFormSubmit(this._message);
+      console.log(this.handleFormSubmit)
 
       this._handleFormSubmit(this._getInputValues());
 

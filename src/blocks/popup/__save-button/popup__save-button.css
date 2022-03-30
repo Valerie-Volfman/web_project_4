@@ -15,10 +15,18 @@
   opacity: 0.8;
 }
 
+@media screen and (min-width: 551px) {
+  .popup__save-button {
+    width: 358px;
+    align-self: center;
+  }
+}
+
 @media screen and (max-width: 550px) {
   .popup__save-button {
     font-size: 14px;
     line-height: 17px;
+    max-width: 358px;
   }
 }
 
