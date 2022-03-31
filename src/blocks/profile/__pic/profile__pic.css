@@ -8,3 +8,7 @@
   background-size: contain;
   margin: 0;
 }
+
+.profile__pic:hover {
+  opacity: 0.2;
+}

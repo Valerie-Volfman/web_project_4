@@ -27,6 +27,12 @@ export default class Card {
     this._handleRemoveCardClick = handleRemoveCardClick;
   }
 
+  _checkIdData(cardData) {
+    if (this._ownerId !== cardData._id) {
+      this._deleteButton.style.display = 'none';
+    }
+  }
+
   _checkLikesData(userData) {
     this._counter.textContent = this._likes.length;
     if (this._counter.textContent == 0) {
@@ -42,20 +48,13 @@ export default class Card {
     console.log(res);
     this._counter.textContent = res.likes.length;
   }
+
   _addEventisteners() {
-    this._element
-      .querySelector(".card__delete-button")
+    this._deleteButton
       .addEventListener("click", (event) => {
         event.stopPropagation();
         this._handleRemoveCardClick(this);
       });
-
-    // this._element
-    // .querySelector(".card__delete-button")
-    // .addEventListener("click", (event) => {
-    //   event.stopPropagation();
-    //   this._element.remove();
-    // });
 
     this._likeButton.addEventListener("click", () => {
       const isLiked = this._likeButton.classList.contains("card__like_active");
@@ -94,11 +93,13 @@ export default class Card {
     this._element.querySelector(
       ".card__picture"
     ).style.backgroundImage = `url("${this._link}")`;
-
+    
     this._likeButton = this._element.querySelector(".card__like");
     this._counter = this._element.querySelector(".card__like-counter");
-
+    this._deleteButton = this._element.querySelector(".card__delete-button");
+    this._checkIdData(userData)
     this._checkLikesData(userData);
+    
 
     this._addEventisteners();
 

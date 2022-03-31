@@ -4,23 +4,6 @@ export default class Api {
       this._headers = options.headers;
     }
   
-    async getInitialCards() {
-        try {
-        const response = await fetch(`${this._baseUrl}/cards`, {
-          headers: this._headers,
-        });
-          
-        if (response.ok) {
-            return response.json()
-        } else {
-            console.log("Something went wrong", response.status, response.statusText)
-        }
-    } catch (error) {
-        console.log("CAUGHT ERROR", error);
-    }
-      }
-      
-
       async getUserData() {
           try {
           const response = await fetch(`${this._baseUrl}/users/me`, {
@@ -37,15 +20,16 @@ export default class Api {
         }
       }
 
-      async editUserData() {
+      async editUserData(name, about, avatar) {
           try {
               const response = await fetch(`${this._baseUrl}/users/me`, {
                   method: "PATCH",
                   headers: this._headers,
                   "Content-Type": "application/json",
                   body: JSON.stringify({
-                      name: "Valerie V",
-                      about: "Web Developer"
+                      name: `${name}`,
+                      about: `${about}`,
+                      avatar: `${avatar}`,
                   })
               });
               if (response.ok) {
@@ -56,6 +40,22 @@ export default class Api {
           } catch (error) {
               console.log("CAUGHT ERROR", error);
           }
+          }
+
+          async getInitialCards() {
+            try {
+            const response = await fetch(`${this._baseUrl}/cards`, {
+              headers: this._headers,
+            });
+              
+            if (response.ok) {
+                return response.json()
+            } else {
+                console.log("Something went wrong", response.status, response.statusText)
+            }
+        } catch (error) {
+            console.log("CAUGHT ERROR", error);
+        }
           }
 
       async addCard(name, link) {
@@ -116,9 +116,9 @@ export default class Api {
 
             async removeCard(data) {
               try {
-                const response = await fetch(`${this._baseUrl}/cards/cardId`, {
+                const response = await fetch(`${this._baseUrl}/cards/${data}`, {
                   method: "DELETE",
-                  headers: this._headers
+                  headers: this._headers,
                 });
 
                 if (response.ok) {
@@ -131,6 +131,25 @@ export default class Api {
             }
             }
 
-            
+            async editProfilePic(avatar) {
+              try {
+                const response = await fetch(`${this._baseUrl}/users/me/avatar`, {
+                  method: "PATCH",
+                  headers: this._headers,
+                  "Content-Type": "application/json",
+              body: JSON.stringify({
+                avatar: `${avatar}`,
+              })
+                });
+
+                if (response.ok) {
+                  return response.json()
+              } else {
+                  console.log("Something went wrong", response.status, response.statusText)
+              }
+              } catch (error) {
+                console.log("CAUGHT ERROR", error);
+              }
+            }
     // other methods for working with the API
   }

@@ -15,11 +15,10 @@ export default class PopupWithForm extends Popup {
     }
   }
 
-  closeMessage() {
+  closeMessage(buttText) {
     this._submitButton.textContent = buttonText;
-    super.close();
+    this.close();
   }
-
   _getInputValues() {
     const data = {};
     const inputList = this._formElement.querySelectorAll(".popup__input");
@@ -28,14 +27,15 @@ export default class PopupWithForm extends Popup {
     });
     return data;
   }
+  resetValues() {
+    this._formElement.reset();
+  }
   setEventListeners() {
     super.setEventListeners();
     this._popup.addEventListener("submit", (event) => {
       this._submitButton.textContent = "Saving...";
       event.preventDefault();
-      this._handleFormSubmit(this);
-      console.log(this);
-      this._formElement.reset();
+      this._handleFormSubmit(this._message);
     });
   }
 }
