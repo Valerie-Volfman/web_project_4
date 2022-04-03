@@ -138,7 +138,8 @@ export function createCard(cardElement) {
     cardElement,
     cardTemplateSelector,
     imagePopup.open,
-    handleRemoveCardClick
+    handleRemoveCardClick,
+    onLikeButtonClick
   );
 }
 
@@ -189,18 +190,20 @@ async function handleProfileFormSubmit() {
   });
 }
 /**Represents Likes */
-export async function addLike(cardData) {
-  await api.addLikes(cardData).then((res) => {
-    cardData.updateLikes(res);
-    console.log(res);
-  });
-}
-
-export async function deleteLike(cardData) {
-  await api.removeLikes(cardData).then((res) => {
-    cardData.updateLikes(res);
-    console.log(res);
-  });
+async function onLikeButtonClick(cardData, isLiked) {
+  if (isLiked) {
+    await api.removeLikes(cardData).then((res) => {
+      console.log(cardData);
+      console.log(res);
+      cardData.updateLikes(res);
+    })
+  } else {
+    await api.addLikes(cardData).then((res) => {
+      console.log(cardData);
+      console.log(res);
+      cardData.updateLikes(res);
+    })
+  }
 }
 
 async function handleChangeAvatarSubmit() {
