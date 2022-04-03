@@ -8,15 +8,15 @@ export default class PopupWithForm extends Popup {
     this._submitButton = this._popup.querySelector(".popup__save-button");
   }
 
-  openMessage(message) {
+  openMessage(data) {
     super.open();
-    if (message) {
-      this._message = message;
+    if (data) {
+      this._data = data;
     }
   }
 
-  closeMessage(buttText) {
-    this._submitButton.textContent = buttonText;
+  closeMessage() {
+    this.resetValues()
     this.close();
   }
   _getInputValues() {
@@ -33,9 +33,8 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
     this._popup.addEventListener("submit", (event) => {
-      this._submitButton.textContent = "Saving...";
       event.preventDefault();
-      this._handleFormSubmit(this._message);
+      this._handleFormSubmit(this._data);
     });
   }
 }

@@ -47,6 +47,5 @@
 @import url(../blocks/card/__like/card__like-frame.css);
 @import url(../blocks/card/__like/card__like-counter.css);
 @import url(../blocks/card/__like/card__like_active.css);
-@import url(../blocks/card/__like/card__like_non-active.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

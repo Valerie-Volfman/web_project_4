@@ -1,8 +1,12 @@
 export default class UserInfo {
-  constructor({ profileName, profileProfession }, inputAvatar) {
-    this._profileName = profileName;
-    this._profileProfession = profileProfession;
-    this._avatar = inputAvatar;
+  constructor(
+    profileNameSelector,
+    profileProfessionSelector,
+    inputAvatarSelector
+  ) {
+    this._profileName = document.querySelector(profileNameSelector);
+    this._profileProfession = document.querySelector(profileProfessionSelector);
+    this._avatar = document.querySelector(inputAvatarSelector);
   }
 
   getUserInfo() {
@@ -14,11 +18,11 @@ export default class UserInfo {
   }
 
   setUserInfo(userData) {
-    this._profileName.textContent = userData.popupInputName;
-    this._profileProfession.textContent = userData.popupInputProfession;
+    this._profileName.textContent = userData.name;
+    this._profileProfession.textContent = userData.about;
   }
 
   setUserAvatar(userData) {
-    this._avatar = userData;
+    this._avatar.style.backgroundImage = `url(${userData.avatar})`;
   }
 }

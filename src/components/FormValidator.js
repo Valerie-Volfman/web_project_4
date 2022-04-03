@@ -27,11 +27,12 @@ class FormValidator {
     errorElement.classList.remove(this._errorClass);
   }
 
+  _hasInvalidInput(inputElements) {
+    inputElements.some((inputElement) => !inputElement.validity.valid);
+  }
+
   _toggleButtonState(inputElements, buttonElement) {
-    const hasInvalidInput = inputElements.some(
-      (inputElement) => !inputElement.validity.valid
-    );
-    if (hasInvalidInput) {
+    if (this._hasInvalidInput(inputElements)) {
       buttonElement.classList.add(this._inactiveButtonClass);
       buttonElement.disabled = true;
     } else {

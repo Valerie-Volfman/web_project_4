@@ -17,12 +17,11 @@ export const placesList = document.querySelector(".places__cards");
 /**DOM elements */
 
 export const cardTemplateSelector = "#card-template";
+export const popupInputName = document.querySelector(".popup__input_type_name");
 export const profileName = document.querySelector(".profile__value_type_name");
 export const profileProfession = document.querySelector(
   ".profile__value_type_profession"
 );
-export const popupInputName = document.querySelector(".popup__input_type_name");
-
 export const popupInputProfession = document.querySelector(
   ".popup__input_type_profession"
 );
@@ -30,9 +29,8 @@ export const popupAvatarInput = document.querySelector(".popupInputCardLink");
 export const inputAvatar = document.querySelector(
   ".popup__input_type_card-link"
 );
-const submitButton = document.querySelector(".popup__save-button");
 
-let newUserData = {};
+let userId = {};
 
 /**Popups */
 export const popupEditProfile = document.querySelector(
@@ -53,6 +51,10 @@ imagePopup.setEventListeners();
 const editButton = document.querySelector(".profile__edit-button");
 const addButton = document.querySelector(".profile__add-button");
 const changeAvatar = document.querySelector(".profile__pic-wrapper");
+const editSubmitButton = popupEditProfile.querySelector(".popup__save-button");
+const addSubmitButton = popupAddCard.querySelector(".popup__save-button");
+const removeSubmitButton = removePopupElement.querySelector(".popup__save-button");
+const avatarSubmitButton = popupAvatar.querySelector(".popup__save-button")
 
 /**Validators */
 export const editFormValidator = new FormValidator(
@@ -69,27 +71,31 @@ changeAvatarValidator.enableValidation();
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 /**Popups Instances */
-export const userInfo = new UserInfo({ profileName, profileProfession });
+export const userInfo = new UserInfo(
+  ".profile__value_type_name",
+  ".profile__value_type_profession",
+  ".profile__pic"
+);
 
-export const editProfilePopup = new PopupWithForm(
+const editProfilePopup = new PopupWithForm(
   ".popup_type_edit-profile",
   handleProfileFormSubmit
 );
 editProfilePopup.setEventListeners();
 
-export const addCardPopup = new PopupWithForm(
+const addCardPopup = new PopupWithForm(
   ".popup_type_add-card",
   handleAddCardFormSubmit
 );
 addCardPopup.setEventListeners();
 
-export const removeCardPopup = new PopupWithForm(
+const removeCardPopup = new PopupWithForm(
   ".popup_type_remove-popup",
   handleRemoveCardFormSubmit
 );
 removeCardPopup.setEventListeners();
 
-export const changeAvatarPopup = new PopupWithForm(
+const changeAvatarPopup = new PopupWithForm(
   ".popup_type_avatar-popup",
   handleChangeAvatarSubmit
 );
@@ -107,16 +113,14 @@ async function init() {
   const [userData, cards] = await Promise.all([
     api.getUserData(),
     api.getInitialCards(),
-  ]);
-  userInfo.setUserInfo({
-    popupInputName: userData.name,
-    popupInputProfession: userData.about,
+  ])
+  .catch((err) => {
+    console.log(err);
   });
-  userInfo.setUserAvatar({ inputAvatar: userData.avatar });
-  newUserData = userData;
-  console.log({ inputAvatar: userData.avatar });
+  userInfo.setUserInfo(userData);
+  userInfo.setUserAvatar(userData);
+  userId = userData;
   cardList.render(Array.from(cards));
-  return userData, cards;
 }
 init();
 
@@ -125,7 +129,7 @@ export const cardList = new Section(
   {
     items: [],
     renderer: (item) => {
-      const card = createCard(item).render(newUserData);
+      const card = createCard(item).render(userId);
       cardList.addItem(card);
     },
   },
@@ -149,28 +153,34 @@ async function handleAddCardFormSubmit() {
     link: addCardPopup._getInputValues().popupInputCardLink,
     name: addCardPopup._getInputValues().popupInputCardTitle,
   };
+  addSubmitButton.textContent = "Saving...";
   await api
     .addCard(newCard.name, newCard.link)
     .then((res) => {
-      cardList.addItem(createCard(res).render());
+      cardList.addItem(createCard(res).render(userId));
+      addCardPopup.close();
     })
     .catch((err) => {
       console.log(err);
-    });
-
-  addCardPopup.close();
+  })
+  addSubmitButton.textContent = "Create";
 }
 /**Represents RemoveCardPopup */
 function handleRemoveCardClick(message) {
   removeCardPopup.openMessage(message);
 }
 
-async function handleRemoveCardFormSubmit(data) {
-  console.log(data);
-  await api.removeCard(data._id).then((res) => {
-    data.deleteCard(res);
-    removeCardPopup.closeMessage("Yes");
-  });
+async function handleRemoveCardFormSubmit(userId) {
+  removeSubmitButton.textContent = "Saving...";
+  try {
+  await api.removeCard(userId._id).then((res) => {
+    console.log(res)
+    userId.deleteCard(res);
+    removeCardPopup.closeMessage();
+  })} catch {((err) => {
+    console.log(err);
+  })}
+  removeSubmitButton.textContent = "Yes";
 }
 
 /**Represents EditProfilePopup */
@@ -179,42 +189,47 @@ async function handleProfileFormSubmit() {
     name: editProfilePopup._getInputValues().popupInputName,
     about: editProfilePopup._getInputValues().popupInputProfession,
   };
+  editSubmitButton.textContent = "Saving..."
   await api.editUserData(userData.name, userData.about).then((res) => {
-    console.log(res);
-    userInfo.setUserInfo({
-      popupInputName: userData.name,
-      popupInputProfession: userData.about,
-    });
+    userInfo.setUserInfo(userData);
     editProfilePopup.close();
+    editSubmitButton.textContent = "Save";
     return userData;
-  });
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 }
 /**Represents Likes */
 async function onLikeButtonClick(cardData, isLiked) {
   if (isLiked) {
     await api.removeLikes(cardData).then((res) => {
-      console.log(cardData);
-      console.log(res);
       cardData.updateLikes(res);
+    })
+    .catch((err) => {
+      console.log(err);
     })
   } else {
     await api.addLikes(cardData).then((res) => {
-      console.log(cardData);
-      console.log(res);
       cardData.updateLikes(res);
+    })
+    .catch((err) => {
+      console.log(err);
     })
   }
 }
 
 async function handleChangeAvatarSubmit() {
-  const userData = {
-    avatar: changeAvatarPopup._getInputValues().inputAvatar,
-  };
-  await api.editProfilePic(userData.avatar).then((res) => {
+  const userData = changeAvatarPopup._getInputValues();
+  avatarSubmitButton.textContent = "Saving..."
+  await api.editProfilePic(userData.popupInputAvatar).then((res) => {
     userInfo.setUserAvatar(res);
-    console.log(res);
     changeAvatarPopup.close();
-  });
+    avatarSubmitButton.textContent = "Save";
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 }
 
 /**This is a description of the opening popups functions. */

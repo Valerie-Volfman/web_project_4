@@ -16,9 +16,10 @@
         <main class="main">
             <section class="profile">
                 <div class="profile__pic-wrapper">
-                <div class="profile__pic"></div>
-                <img class="profile__pic-icon" aria-label="edit" type="submit" name="avatarButton" src ="<%=require('./images/Avatar.svg')%>" alt="icon">
-            </div>
+                    <div class="profile__pic"></div>
+                    <img class="profile__pic-icon" aria-label="edit" type="submit" name="avatarButton"
+                        src="<%=require('./images/Avatar.svg')%>" alt="icon">
+                </div>
                 <div class="profile__container">
                     <div class="profile__info">
                         <div class="profile__name">
@@ -91,7 +92,7 @@
                 <form id="delete-popup" name="removePopup" class="popup__form">
                     <button form="delete-popup" aria-label="save" type="submit" name="popupSaveButton"
                         class="popup__save-button">Yes</button>
-                    </form>
+                </form>
             </div>
         </section>
         <section class="popup popup_type_avatar-popup">
@@ -100,8 +101,8 @@
                     class="popup__close-button"></button>
                 <h2 class="popup__title">Change profile picture</h2>
                 <form name="avatarForm" class="popup__form">
-                    <input id="input_type_avatar" type="url" placeholder="Image link" name="popupInputAvatar"
-                        required class="popup__input popup__input_type_card-link">
+                    <input id="input_type_avatar" type="url" placeholder="Image link" name="popupInputAvatar" required
+                        class="popup__input popup__input_type_card-link">
                     <span id="input_type_avatar-error" class="popup__error">Please enter a web address.</span>
                     <button aria-label="save" type="submit" name="popupSaveButton"
                         class="popup__save-button">Save</button>
@@ -116,8 +117,7 @@
             <div class="card__box">
                 <h2 class="card__name"></h2>
                 <div class="card__like-frame">
-                    <button aria-label="like" type="button" name="cardLike"
-                        class="card__like card__like_non-active"></button>
+                    <button aria-label="like" type="button" name="cardLike" class="card__like"></button>
                     <span class="card__like-counter"></span>
                 </div>
             </div>
