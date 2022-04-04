@@ -30,7 +30,7 @@ export const inputAvatar = document.querySelector(
   ".popup__input_type_card-link"
 );
 
-let userId = {};
+let userId = "";
 
 /**Popups */
 export const popupEditProfile = document.querySelector(

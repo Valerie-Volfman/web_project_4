@@ -35,24 +35,33 @@ export default class Card {
   }
 
   updateLikes(res) {
+    this._likes = res.likes;
     this._renderLikes();
-    this._counter.textContent = res.likes.length || "";
   }
 
-  _isLiked(data) {
-    console.log(this._likes);
-    console.log(data._id);
-    if (this._likes.some((item) => item._id == data._id)) {
-      this._likeButton.classList.add("card__like_active");
-    }
+  _isLiked() {
+    _isLiked = () => this._likes.some((item) => item._id == this._userId)
+    // console.log(this._likes);
+    // console.log(data._id);
+    // if (this._likes.some((item) => item._id == data._id)) {
+    //   this._likeButton.classList.add("card__like_active");
+    // }
   }
 
-  _getLikesCount() {
+  _setLikesCount() {
     this._counter.textContent = this._likes.length || "";
   }
 
-  _renderLikes() {
-    this._likeButton.classList.toggle("card__like_active");
+  _renderLikes = () => {
+    this._counter.textContent = likes.length || "";
+
+    if (this.isLiked()) {
+      this._likeButton.classList.remove("card__like_active");
+    } else {
+      this._likeButton.classList.add("card__like_active");
+    }
+    // this._likeButton.classList.toggle("card__like_active");
+    // this._counter.textContent = res.likes.length || "";
   }
 
   _addEventisteners() {
@@ -76,6 +85,7 @@ export default class Card {
   }
 
   deleteCard() {
+    this._element.remove();
     this._element = null;
   }
 
@@ -84,18 +94,21 @@ export default class Card {
   }
 
   render(userData) {
+    console.log(userData)
     this._element = this._template.cloneNode(true);
+    console.log(this._element)
     this._element.querySelector(".card__name").textContent = this._name;
     this._element.querySelector(
       ".card__picture"
     ).style.backgroundImage = `url("${this._link}")`;
+    this._addEventisteners();
     this._likeButton = this._element.querySelector(".card__like");
     this._counter = this._element.querySelector(".card__like-counter");
     this._deleteButton = this._element.querySelector(".card__delete-button");
     this._setDeleteButtonDisplay(userData);
-    this._isLiked(userData);
-    this._getLikesCount();
-    this._addEventisteners();
+    this._userId = userData._id; 
+    this._renderLikes();
+   
     return this._element;
   }
 }
