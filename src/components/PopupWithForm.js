@@ -16,10 +16,11 @@ export default class PopupWithForm extends Popup {
   }
 
   closeMessage() {
-    this.resetValues()
+    this.resetValues();
     this.close();
   }
-  _getInputValues() {
+
+  getInputValues() {
     const data = {};
     const inputList = this._formElement.querySelectorAll(".popup__input");
     inputList.forEach((input) => {
@@ -27,9 +28,11 @@ export default class PopupWithForm extends Popup {
     });
     return data;
   }
+
   resetValues() {
     this._formElement.reset();
   }
+
   setEventListeners() {
     super.setEventListeners();
     this._popup.addEventListener("submit", (event) => {

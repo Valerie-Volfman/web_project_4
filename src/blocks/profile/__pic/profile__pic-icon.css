@@ -1,8 +1,5 @@
 .profile__pic-icon {
   position: absolute;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
   cursor: pointer;
   opacity: 0;
   align-self: center;

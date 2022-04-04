@@ -8,19 +8,9 @@ export default class Api {
     try {
       const response = await fetch(`${this._baseUrl}/users/me`, {
         headers: this._headers,
-      });
-
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.log(
-          "Something went wrong",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.log("CAUGHT ERROR", error);
+      }).then(this._getResponseData(response));
+    } finally {
+      console.log("finally");
     }
   }
 
@@ -34,18 +24,9 @@ export default class Api {
           name: name,
           about: about,
         }),
-      });
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.log(
-          "Something went wrong",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.log("CAUGHT ERROR", error);
+      }).then(this._getResponseData(response));
+    } finally {
+      console.log("finally");
     }
   }
 
@@ -53,19 +34,9 @@ export default class Api {
     try {
       const response = await fetch(`${this._baseUrl}/cards`, {
         headers: this._headers,
-      });
-
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.log(
-          "Something went wrong",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.log("CAUGHT ERROR", error);
+      }).then(this._getResponseData(response));
+    } finally {
+      console.log("finally");
     }
   }
 
@@ -79,19 +50,9 @@ export default class Api {
           name: name,
           link: link,
         }),
-      });
-
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.log(
-          "Something went wrong",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.log("CAUGHT ERROR", error);
+      }).then(this._getResponseData(response));
+    } finally {
+      console.log("finally");
     }
   }
 
@@ -103,19 +64,9 @@ export default class Api {
           method: "PUT",
           headers: this._headers,
         }
-      );
-
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.log(
-          "Something went wrong",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.log("CAUGHT ERROR", error);
+      ).then(this._getResponseData(response));
+    } finally {
+      console.log("finally");
     }
   }
 
@@ -127,19 +78,9 @@ export default class Api {
           method: "DELETE",
           headers: this._headers,
         }
-      );
-
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.log(
-          "Something went wrong",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.log("CAUGHT ERROR", error);
+      ).then(this._getResponseData(response));
+    } finally {
+      console.log("finally");
     }
   }
 
@@ -148,19 +89,9 @@ export default class Api {
       const response = await fetch(`${this._baseUrl}/cards/${userData}`, {
         method: "DELETE",
         headers: this._headers,
-      });
-
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.log(
-          "Something went wrong",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.log("CAUGHT ERROR", error);
+      }).then(this._getResponseData(response));
+    } finally {
+      console.log("finally");
     }
   }
 
@@ -173,20 +104,21 @@ export default class Api {
         body: JSON.stringify({
           avatar: `${avatar}`,
         }),
-      });
-
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.log(
-          "Something went wrong",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.log("CAUGHT ERROR", error);
+      }).then(this._getResponseData(response));
+    } finally {
+      console.log("finally");
     }
   }
-  // other methods for working with the API
+
+  _getResponseData(response) {
+    if (!response.ok) {
+      return Promise.reject(
+        "Something went wrong",
+        response.status,
+        response.statusText
+      );
+    }
+
+    return response.json();
+  }
 }

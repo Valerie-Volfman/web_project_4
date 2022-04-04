@@ -1,12 +1,11 @@
-import { popupPic, popupImageTitle } from "../pages/index.js";
-
 export default class Card {
   constructor(
     cardData,
     cardTemplateSelector,
     onImageClick,
     handleRemoveCardClick,
-    onLikeButtonClick
+    onLikeButtonClick,
+    imagePopupElement
   ) {
     this._name = cardData.name;
     this._link = cardData.link;
@@ -14,6 +13,11 @@ export default class Card {
     this._id = cardData._id;
     this._ownerId = cardData.owner._id;
     this._cardData = cardData;
+
+    this._popupPic = imagePopupElement.querySelector(".popup__image");
+    this._popupImageTitle = imagePopupElement.querySelector(
+      ".popup__image-title"
+    );
 
     this._template = document
       .querySelector(cardTemplateSelector)
@@ -65,8 +69,8 @@ export default class Card {
     this._element
       .querySelector(".card__picture")
       .addEventListener("click", () => {
-        popupPic.style.backgroundImage = `url("${this._link}")`;
-        popupImageTitle.textContent = this._name;
+        this._popupPic.style.backgroundImage = `url("${this._link}")`;
+        this._popupImageTitle.textContent = this._name;
         this._handlePreviewPicture();
       });
   }
