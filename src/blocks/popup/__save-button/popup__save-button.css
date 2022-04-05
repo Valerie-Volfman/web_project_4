@@ -10,7 +10,7 @@
   font-weight: normal;
   cursor: pointer;
   align-self: center;
-  min-width: 320px;
+  width: 358px;
 }
 
 .popup__save-button:hover {
@@ -21,6 +21,7 @@
   .popup__save-button {
     font-size: 14px;
     line-height: 17px;
+    width: 238px;
   }
 }
 

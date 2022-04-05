@@ -8,6 +8,7 @@
   background-size: contain;
   margin: 0;
   z-index: 0;
+  cursor: pointer;
 }
 
 .profile__pic:hover {

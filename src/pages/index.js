@@ -116,15 +116,13 @@ async function init() {
     const [userData, cards] = await Promise.all([
       api.getUserData(),
       api.getInitialCards(),
-    ])
+    ]);
     userInfo.setUserInfo(userData);
     userInfo.setUserAvatar(userData);
     userId = userData;
     cardList.render(Array.from(cards));
-  } catch {
-    (err) => {
-      console.log(err);
-    }
+  } catch (error) {
+    console.log(error);
   }
 }
 init();
@@ -165,10 +163,8 @@ async function handleAddCardFormSubmit() {
       cardList.addItem(createCard(res).render(userId));
       addCardPopup.close();
     });
-  } catch {
-    (err) => {
-      console.log(err);
-    };
+  } catch (error) {
+    console.log(error);
   }
   addSubmitButton.textContent = "Create";
 }
@@ -185,10 +181,8 @@ async function handleRemoveCardFormSubmit(userId) {
       userId.deleteCard(res);
       removeCardPopup.closeMessage();
     });
-  } catch {
-    (err) => {
-      console.log(err);
-    };
+  } catch (error) {
+    console.log(error);
   }
   removeSubmitButton.textContent = "Yes";
 }
@@ -206,10 +200,8 @@ async function handleProfileFormSubmit() {
       editProfilePopup.close();
       return userData;
     });
-  } catch {
-    (err) => {
-      console.log(err);
-    };
+  } catch (error) {
+    console.log(error);
   }
   editSubmitButton.textContent = "Save";
 }
@@ -220,20 +212,16 @@ async function onLikeButtonClick(cardData, isLiked) {
       await api.removeLikes(cardData).then((res) => {
         cardData.updateLikes(res);
       });
-    } catch {
-      (err) => {
-        console.log(err);
-      };
+    } catch (error) {
+      console.log(error);
     }
   } else {
     try {
       await api.addLikes(cardData).then((res) => {
         cardData.updateLikes(res);
       });
-    } catch {
-      (err) => {
-        console.log(err);
-      };
+    } catch (error) {
+      console.log(error);
     }
   }
 }
@@ -246,18 +234,17 @@ async function handleChangeAvatarSubmit() {
       userInfo.setUserAvatar(res);
       changeAvatarPopup.close();
     });
-  } catch {
-    (err) => {
-      console.log(err);
-    };
+  } catch (error) {
+    console.log(error);
   }
   avatarSubmitButton.textContent = "Save";
 }
 
 /**This is a description of the opening popups functions. */
 changeAvatar.addEventListener("click", () => {
-  changeAvatarPopup.open();
   changeAvatarPopup.resetValues();
+  changeAvatarValidator.resetValidation();
+  changeAvatarPopup.open();
 });
 
 function fillProfileForm() {
@@ -267,11 +254,12 @@ function fillProfileForm() {
 
 editButton.addEventListener("click", () => {
   fillProfileForm();
+  editFormValidator.resetValidation();
   editProfilePopup.open();
 });
 
 addButton.addEventListener("click", () => {
+  addCardPopup.resetValues();
   addFormValidator.resetValidation();
   addCardPopup.open();
-  addCardPopup.resetValues();
 });
